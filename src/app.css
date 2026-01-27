@@ -1,0 +1,95 @@
+/* RESET (wichtig für sauberes Layout) */
+* {
+  box-sizing: border-box;
+}
+
+/* ROOT / BODY */
+body {
+  margin: 0;
+  font-family: "Inria Sans", sans-serif;
+}
+
+/* HAUPT-CONTAINER */
+main {
+  min-height: 100vh;
+  background-color: #fbe3c7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 16px;
+}
+
+/* HEADER: Überschrift + Fortschritt */
+header {
+  text-align: center;
+  margin-top: 24px;
+}
+
+h1 {
+  color: #954C15;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+header p {
+  color: #954C15;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 8px 0 0;
+}
+
+/* INSEL-ZENTRIERUNG */
+.island {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.island img {
+  max-width: 280px;
+  height: auto;
+}
+
+/* BUTTON UNTEN */
+button {
+  font-family: "Inria Sans", sans-serif;
+  background-color: #954C15;
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+/* DESKTOP-ANSICHT */
+@media (min-width: 900px) {
+  main {
+    padding: 64px;
+  }
+
+  .island img {
+    max-width: 360px;
+  }
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 32px;
+  font-weight: 700;
+  color: #954C15;
+  cursor: pointer;
+}
+
+.arrow.left {
+  margin-right: 16px;
+}
+
+.arrow.right {
+  margin-left: 16px;
+}
