@@ -1,0 +1,129 @@
+<script>
+  import { createEventDispatcher } from 'svelte';
+  
+  export let currentView = 'home'; // 'home', 'islands', 'favorites'
+  
+  const dispatch = createEventDispatcher();
+  
+  function navigate(view) {
+    dispatch('navigate', { view });
+  }
+</script>
+
+<nav class="menu-bar">
+  <button 
+    class="menu-item" 
+    class:active={currentView === 'home'}
+    on:click={() => navigate('home')}
+  >
+    <span class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </span>
+    <span class="label">Start</span>
+  </button>
+  
+  <button 
+    class="menu-item" 
+    class:active={currentView === 'islands'}
+    on:click={() => navigate('islands')}
+  >
+    <span class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+    </span>
+    <span class="label">Inseln</span>
+  </button>
+  
+  <button 
+    class="menu-item" 
+    class:active={currentView === 'favorites'}
+    on:click={() => navigate('favorites')}
+  >
+    <span class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill={currentView === 'favorites' ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+    </span>
+    <span class="label">Favoriten</span>
+  </button>
+</nav>
+
+<style>
+  .menu-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 0.75rem 0.5rem 0.5rem;
+    box-shadow: 0 -4px 20px rgba(139, 111, 71, 0.15);
+    z-index: 1000;
+    border-top: none;
+  }
+
+  .menu-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.625rem 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    color: #A08875;
+    border-radius: 16px;
+  }
+
+  .menu-item:hover {
+    background: #FFF4E6;
+    transform: translateY(-2px);
+  }
+
+  .menu-item.active {
+    color: #FF9B71;
+    background: #FFF4E6;
+  }
+
+  .menu-item.active .icon {
+    transform: scale(1.15);
+    animation: bounce 0.5s ease;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: scale(1.15) translateY(0);
+    }
+    50% {
+      transform: scale(1.15) translateY(-4px);
+    }
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .label {
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  /* Platz für die fixierte MenuBar schaffen */
+  :global(body) {
+    padding-bottom: 80px;
+  }
+</style>

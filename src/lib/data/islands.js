@@ -1,37 +1,36 @@
 export const islands = [
   {
-    title: "Fleisch- & Eierinsel",
+    title: "Proteininsel",
     progress: "1 / 5",
     bg: "#F8E4E1",
     color: "#D2691E",
     image: "/islands/fleisch.png",
     button: "#D2691E",
-    // emoji entfernt
     tasks: [
       {
         id: 1,
-        title: "Fleisch oder Ei essen",
-        description: "Iss heute ein Stück Fleisch oder ein Ei. Trage ein, was du gegessen hast."
+        title: "Etwas Neues probieren",
+        description: "Iss heute ein Fleisch- oder Eiprodukt, das du sonst selten isst. Was war es?"
       },
       {
         id: 2,
-        title: "Neues Fleisch oder Ei essen",
-        description: "Probiere heute ein Fleisch- oder Eiprodukt, das du selten isst. Schreibe auf, was es war."
+        title: "Andere Zubereitung",
+        description: "Iss Fleisch oder Ei in einer neuen Form, z. B. gekocht statt gebraten. Was hast du probiert?"
       },
       {
         id: 3,
-        title: "Mit Beilage essen",
-        description: "Iss Fleisch oder Ei zusammen mit einer Beilage. Was hast du gegessen? Trage es ein."
+        title: "Kombination entdecken",
+        description: "Kombiniere Fleisch oder Ei mit einer Beilage, die du sonst nicht dazu isst. Was war es?"
       },
       {
         id: 4,
-        title: "Zum Frühstück oder Abendessen essen",
-        description: "Iss Fleisch oder Ei zum Frühstück oder Abendessen. Was war es? Schreibe es auf."
+        title: "Ungewohnte Mahlzeit",
+        description: "Iss Fleisch oder Ei zu einer Mahlzeit, zu der du es sonst nicht isst. Was war es?"
       },
       {
         id: 5,
-        title: "Neues Gericht essen",
-        description: "Iss ein neues Gericht mit Fleisch oder Ei. Was hast du probiert? Trage es ein."
+        title: "Neues Gericht",
+        description: "Probiere ein neues Gericht mit Fleisch oder Ei. Was hast du entdeckt?"
       }
     ]
   },
@@ -45,28 +44,28 @@ export const islands = [
     tasks: [
       {
         id: 1,
-        title: "Gemüse essen",
-        description: "Iss heute ein Gemüse. Trage ein, welches du gegessen hast."
+        title: "Neues Gemüse entdecken",
+        description: "Iss heute ein Gemüse, das du selten oder noch nie gegessen hast. Welches war es?"
       },
       {
         id: 2,
-        title: "Gemüse mischen und essen",
-        description: "Kombiniere verschiedene Gemüsesorten und iss sie. Was hast du gegessen? Trage es ein."
+        title: "Andere Farbe essen",
+        description: "Iss ein Gemüse in einer Farbe, die du sonst kaum isst. Was war es?"
       },
       {
         id: 3,
-        title: "Roh oder gekocht essen",
-        description: "Iss ein Gemüse einmal roh und einmal gekocht. Was war es? Schreibe es auf."
+        title: "Roh oder gekocht",
+        description: "Probiere ein Gemüse roh oder gekocht – je nachdem, was du sonst nicht kennst. Welches war es?"
       },
       {
         id: 4,
-        title: "Neues Gemüse essen",
-        description: "Probiere ein neues Gemüse und iss es. Was war es? Trage es ein."
+        title: "Neue Kombination",
+        description: "Kombiniere Gemüse mit etwas Neuem, z. B. einer anderen Soße oder Beilage. Was hast du gegessen?"
       },
       {
         id: 5,
-        title: "Gemüse zu einer Mahlzeit essen",
-        description: "Iss Gemüse zu einer Mahlzeit. Was war es? Schreibe es auf."
+        title: "Gemüse neu erleben",
+        description: "Iss Gemüse in einer Form, die du noch nicht kennst. Was war anders?"
       }
     ]
   },
@@ -80,28 +79,28 @@ export const islands = [
     tasks: [
       {
         id: 1,
-        title: "Getreide essen",
-        description: "Iss heute ein Getreideprodukt wie Brot, Nudeln oder Reis. Was war es? Schreibe es auf."
+        title: "Neues Getreide probieren",
+        description: "Iss ein Getreideprodukt, das du selten isst. Was war es?"
       },
       {
         id: 2,
-        title: "Neues Getreide essen",
-        description: "Probiere heute ein Getreideprodukt, das du selten isst. Was war es? Trage es ein."
+        title: "Andere Form",
+        description: "Iss ein Getreideprodukt in einer ungewohnten Form, z. B. warm statt kalt. Was war es?"
       },
       {
         id: 3,
-        title: "Getreide mischen und essen",
-        description: "Kombiniere verschiedene Getreideprodukte und iss sie. Was hast du gegessen? Trage es ein."
+        title: "Getreide mischen",
+        description: "Kombiniere zwei Getreideprodukte. Was hast du gegessen?"
       },
       {
         id: 4,
-        title: "Getreide zu einer Mahlzeit essen",
-        description: "Iss ein Getreideprodukt zu einer Mahlzeit. Was war es? Schreibe es auf."
+        title: "Neue Mahlzeit",
+        description: "Iss ein Getreideprodukt zu einer Mahlzeit, zu der du es sonst nicht isst. Was war es?"
       },
       {
         id: 5,
-        title: "Getreide als Snack essen",
-        description: "Iss ein Getreideprodukt als Snack zwischendurch. Was war es? Trage es ein."
+        title: "Getreide neu entdecken",
+        description: "Probiere ein neues Gericht mit Getreide. Was hast du entdeckt?"
       }
     ]
   },
@@ -112,32 +111,31 @@ export const islands = [
     color: "#8E44AD",
     image: "/islands/getraenke.png",
     button: "#8E44AD",
-    // emoji entfernt
     tasks: [
       {
         id: 1,
-        title: "Getränk trinken",
-        description: "Trinke heute ein Getränk. Was hast du getrunken? Trage es ein."
+        title: "Neues Getränk probieren",
+        description: "Trinke heute ein Getränk, das du selten trinkst. Was war es?"
       },
       {
         id: 2,
-        title: "Neues Getränk trinken",
-        description: "Trinke heute ein Getränk, das du selten trinkst. Was war es? Schreibe es auf."
+        title: "Andere Temperatur",
+        description: "Trinke etwas Warmes oder Kaltes, das du sonst nicht trinkst. Was war es?"
       },
       {
         id: 3,
-        title: "Getränke mischen und trinken",
-        description: "Mische zwei Getränke und trinke sie. Was hast du gemischt? Trage es ein."
+        title: "Getränke kombinieren",
+        description: "Mische zwei Getränke oder Zutaten. Was hast du gemischt?"
       },
       {
         id: 4,
-        title: "Warm und kalt trinken",
-        description: "Trinke heute etwas Warmes und etwas Kaltes. Was war es? Schreibe es auf."
+        title: "Bewusst trinken",
+        description: "Trinke heute ein Getränk ganz bewusst. Was hast du gewählt?"
       },
       {
         id: 5,
-        title: "Getränk zum Essen trinken",
-        description: "Trinke ein Getränk zu einer Mahlzeit. Was war es? Trage es ein."
+        title: "Neues Getränkeerlebnis",
+        description: "Probiere ein neues Getränk oder eine neue Zubereitung. Was war neu?"
       }
     ]
   },
@@ -148,32 +146,31 @@ export const islands = [
     color: "#2196F3",
     image: "/islands/milch.png",
     button: "#2196F3",
-    // emoji entfernt
     tasks: [
       {
         id: 1,
-        title: "Milchprodukt essen",
-        description: "Iss heute ein Milchprodukt wie Käse, Joghurt oder Quark. Was hast du gegessen? Trage es ein."
+        title: "Neues Milchprodukt",
+        description: "Iss ein Milchprodukt, das du selten isst. Was war es?"
       },
       {
         id: 2,
-        title: "Neues Milchprodukt essen",
-        description: "Iss heute ein Milchprodukt, das du selten isst. Was war es? Schreibe es auf."
+        title: "Andere Kombination",
+        description: "Kombiniere ein Milchprodukt mit etwas Neuem. Was hast du gegessen?"
       },
       {
         id: 3,
-        title: "Milchprodukte mischen und essen",
-        description: "Kombiniere verschiedene Milchprodukte oder esse sie mit Obst oder Müsli. Was hast du gegessen? Trage es ein."
+        title: "Andere Form",
+        description: "Iss ein Milchprodukt in einer anderen Form als sonst. Was war anders?"
       },
       {
         id: 4,
-        title: "Milchprodukt zu einer Mahlzeit essen",
-        description: "Iss ein Milchprodukt zu einer Mahlzeit. Was war es? Schreibe es auf."
+        title: "Neue Mahlzeit",
+        description: "Iss ein Milchprodukt zu einer ungewohnten Mahlzeit. Was war es?"
       },
       {
         id: 5,
-        title: "Neues Rezept mit Milchprodukt essen",
-        description: "Iss ein neues Rezept mit Milchprodukten. Was hast du probiert? Trage es ein."
+        title: "Neues Rezept",
+        description: "Probiere ein neues Rezept mit Milchprodukten. Was hast du entdeckt?"
       }
     ]
   },
@@ -184,32 +181,31 @@ export const islands = [
     color: "#FFA500",
     image: "/islands/obst.png",
     button: "#FFA500",
-    // emoji entfernt
     tasks: [
       {
         id: 1,
-        title: "Obst essen",
-        description: "Iss heute ein Obst. Was hast du gegessen? Trage es ein."
+        title: "Neues Obst",
+        description: "Iss heute ein Obst, das du selten oder noch nie gegessen hast. Welches war es?"
       },
       {
         id: 2,
-        title: "Neues Obst essen",
-        description: "Iss heute ein Obst, das du selten isst. Was war es? Schreibe es auf."
+        title: "Andere Farbe",
+        description: "Iss ein Obst in einer Farbe, die du sonst kaum isst. Was war es?"
       },
       {
         id: 3,
-        title: "Obst mischen und essen",
-        description: "Kombiniere verschiedene Obstsorten und iss sie. Was hast du gegessen? Trage es ein."
+        title: "Neue Kombination",
+        description: "Kombiniere verschiedene Obstsorten. Was hast du gegessen?"
       },
       {
         id: 4,
-        title: "Roh oder verarbeitet essen",
-        description: "Iss ein Obst einmal roh und einmal als Mus, Saft oder Kompott. Was war es? Schreibe es auf."
+        title: "Andere Form",
+        description: "Iss Obst in einer anderen Form, z. B. als Mus oder gebacken. Was war es?"
       },
       {
         id: 5,
-        title: "Neues Obst essen",
-        description: "Probiere ein neues Obst und iss es. Was war es? Trage es ein."
+        title: "Obst neu erleben",
+        description: "Probiere ein neues Obstgericht oder eine neue Zubereitung. Was hast du entdeckt?"
       }
     ]
   }

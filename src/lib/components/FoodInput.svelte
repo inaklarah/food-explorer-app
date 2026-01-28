@@ -1,6 +1,8 @@
 
 <script>
     import { createEventDispatcher } from 'svelte';
+    import { showPassiveComment, lastEatenFood, currentTask } from '../stores/characterStore.js';
+    
     const dispatch = createEventDispatcher();
 
     // Favoriten-Status für aktuelles food prüfen
@@ -35,10 +37,20 @@
 
   // Verschiedene Lob-Nachrichten
   const praiseMessages = [
-    "🌟 Super Versuch!",
-    "✨ Toll gemacht!",
-    "🎉 Klasse Wahl!",
-    "⭐ Du bist eine Entdeckerin!"
+    "Super Versuch!",
+    "Toll gemacht!",
+    "Klasse Wahl!",
+    "Du bist eine Entdeckerin!"
+  ];
+
+  // Tiger-Kommentare basierend auf Essen
+  const tigerComments = [
+    "Mmmh, das klingt lecker! 🥕",
+    "Toll! Du hast etwas Neues probiert! ⭐",
+    "Wow, das mag ich auch! 😋",
+    "Super Entdeckung! 🌟",
+    "Das sieht spannend aus! 👀",
+    "Yummy! Das ist gesund! 💪"
   ];
 
   async function handleSubmit() {
@@ -84,6 +96,15 @@
         info = aiData.text || "Das ist ein tolles Lebensmittel!";
         praise = praiseMessages[Math.floor(Math.random() * praiseMessages.length)];
         submitted = true;
+
+        // Tiger-Kommentar anzeigen
+        const randomComment = tigerComments[Math.floor(Math.random() * tigerComments.length)];
+        showPassiveComment(randomComment);
+
+        // Speichere Essen im Store für Tiger-Context
+        lastEatenFood.set(food.trim());
+        currentTask.set(island.title);
+
       } catch (err) {
         console.error("Error:", err);
         error = `Fehler: ${err.message}. Ist der Server aktiv?`;
@@ -124,27 +145,16 @@
         on:keypress={handleKeypress}
         placeholder="z.B. Apfel, Karotte..."
         disabled={loading}
-        style="border-color: {island.color}"
+        style="border-color: {island.color};"
       />
-    </div>
-    <div class="button-row">
       <button
+        class="submit-btn"
         on:click={handleSubmit}
         disabled={!food.trim() || loading}
-        style="background: {island.button}"
+        style="background: linear-gradient(180deg, {island.button} 0%, {island.button}dd 100%); box-shadow: 0 4px 0 {island.color}99;"
       >
-        {loading ? "⏳" : "Absenden"}
+        {loading ? "..." : "→"}
       </button>
-      {#if submitted}
-        <button
-          class="favorite-button"
-          on:click={addToFavorites}
-          disabled={!food.trim() || isFavorited}
-          style="border: 2px solid {island.color}; color: {isFavorited ? '#aaa' : island.color}; background: white; margin-left: 8px;"
-        >
-          {isFavorited ? 'Schon als Favorit' : 'Zu Favoriten'}
-        </button>
-      {/if}
     </div>
   </div>
 
@@ -157,85 +167,81 @@
   {#if submitted}
     <div>
       {#if praise}
-        <div class="praise-message">{praise}</div>
+        <div class="praise-message" style="color: {island.color};">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <p>{praise}</p>
+        </div>
       {/if}
-      <div class="recipe-box">
+      <div class="info-box" style="background: {island.bg}; border-color: {island.color};">
         <p>{info}</p>
       </div>
       <div class="action-buttons">
+        <button
+          class="favorite-button"
+          on:click={addToFavorites}
+          disabled={!food.trim() || isFavorited}
+          style="border: 2px solid {island.color}; color: {island.color}; background: white;"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill={isFavorited ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          {isFavorited ? 'Schon gespeichert' : 'Als Favorit speichern'}
+        </button>
         <button 
           class="complete-button" 
           on:click={completeTask} 
-          style="background: {island.button}"
+          style="background: linear-gradient(180deg, {island.button} 0%, {island.button}dd 100%); box-shadow: 0 6px 0 {island.color}99;"
         >
-          ✓ Aufgabe fertig
+          Aufgabe fertig
         </button>
       </div>
     </div>
-
   {/if}
 </div>
 
 <style>
-      .button-row {
-        display: flex;
-        gap: 8px;
-        margin-top: 8px;
-        flex-wrap: wrap;
-      }
-    .favorite-button {
-      flex: 1;
-      min-width: 160px;
-      padding: 14px;
-      border-radius: 12px;
-      font-family: "Inria Sans", system-ui, sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .favorite-button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
   .food-input-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    gap: 1.5rem;
+    padding: 1.5rem;
   }
 
   .input-section {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 1rem;
   }
 
   label {
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 16px;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 18px;
     font-weight: 600;
-    color: #333;
+    color: #5A4A42;
   }
 
   .input-wrapper {
     display: flex;
-    gap: 8px;
+    gap: 0.75rem;
   }
 
   input {
     flex: 1;
-    padding: 12px 16px;
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    font-size: 16px;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    transition: border-color 0.2s;
+    padding: 16px 20px;
+    border: 3px solid;
+    border-radius: 16px;
+    font-size: 17px;
+    font-family: 'Inria Sans', sans-serif;
+    transition: all 0.2s ease;
+    background: white;
   }
 
   input:focus {
     outline: none;
-    border-color: currentColor;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   input:disabled {
@@ -243,16 +249,114 @@
     cursor: not-allowed;
   }
 
-  button {
-    padding: 12px 24px;
+  .submit-btn {
+    width: 56px;
+    height: 56px;
     border: none;
-    border-radius: 12px;
+    border-radius: 50%;
     color: white;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 16px;
+    font-size: 24px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .submit-btn:not(:disabled):hover {
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .submit-btn:not(:disabled):active {
+    transform: translateY(3px);
+  }
+
+  .error {
+    background: #FFE8E8;
+    border: 3px solid #FF6B6B;
+    border-radius: 16px;
+    padding: 1.25rem;
+  }
+
+  .error p {
+    margin: 0;
+    color: #C92A2A;
+    font-family: 'Inria Sans', sans-serif;
+    font-weight: 600;
+  }
+
+  .praise-message {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .praise-message svg {
+    animation: rotate 0.6s ease-in-out;
+  }
+
+  .praise-message p {
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .info-box {
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 3px solid;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-box p {
+    margin: 0;
+    color: #5A4A42;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 500;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  button {
+    padding: 16px 28px;
+    border: none;
+    border-radius: 16px;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 17px;
     font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .favorite-button {
+    border-width: 3px !important;
+  }
+
+  .complete-button {
+    color: white;
   }
 
   button:disabled {
@@ -261,85 +365,18 @@
   }
 
   button:not(:disabled):hover {
-    opacity: 0.9;
-    transform: scale(1.02);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(255, 133, 85, 0.35);
   }
 
   button:not(:disabled):active {
-    transform: scale(0.98);
-  }
-
-  .error {
-    background: #FFE0E0;
-    border: 2px solid #FF6B6B;
-    border-radius: 12px;
-    padding: 16px;
-  }
-
-  .error p {
-    margin: 0;
-    color: #C92A2A;
-    font-family: "Inria Sans", system-ui, sans-serif;
-  }
-
-
-  .praise-message {
-    text-align: center;
-    font-size: 28px;
-    margin-bottom: 16px;
-    animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  }
-
-  .recipe-box {
-    background: #F8F9FA;
-    border-radius: 12px;
-    padding: 16px;
-    border-left: 4px solid #5C7A2A;
-    margin-bottom: 16px;
-  }
-
-  .recipe-box p {
-    margin: 0;
-    color: #555;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    line-height: 1.6;
-  }
-
-  .action-buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-
-
-  .complete-button {
-    flex: 1;
-    min-width: 160px;
-    padding: 14px;
-    color: white;
-    border: none;
-    border-radius: 12px;
-  }
-
-  .complete-button:hover {
-    opacity: 0.9;
-  }
-
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 133, 85, 0.2);
   }
 
   @keyframes popIn {
     0% {
-      transform: scale(0) rotate(-10deg);
+      transform: scale(0) rotate(-15deg);
       opacity: 0;
     }
     70% {
@@ -348,6 +385,18 @@
     100% {
       transform: scale(1) rotate(0);
       opacity: 1;
+    }
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg) scale(0);
+    }
+    50% {
+      transform: rotate(180deg) scale(1.2);
+    }
+    100% {
+      transform: rotate(360deg) scale(1);
     }
   }
 </style>

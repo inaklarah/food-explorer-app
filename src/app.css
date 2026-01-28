@@ -6,13 +6,15 @@
 /* ROOT / BODY */
 body {
   margin: 0;
-  font-family: "Inria Sans", sans-serif;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #FFF9F0;
+  color: #5A4A42;
 }
 
 /* HAUPT-CONTAINER */
 main {
   min-height: 100vh;
-  background-color: #fbe3c7;
+  background: linear-gradient(180deg, #FFF9F0 0%, #FFF4E6 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,16 +28,26 @@ header {
 }
 
 h1 {
-  color: #954C15;
-  font-size: 28px;
+  font-family: 'Inria Sans', sans-serif;
+  color: #7D5A3D;
+  font-size: 32px;
   font-weight: 700;
   margin: 0;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  font-family: 'Inria Sans', sans-serif;
+  color: #7D5A3D;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 header p {
-  color: #954C15;
-  font-size: 24px;
-  font-weight: 700;
+  color: #7D5A3D;
+  font-size: 17px;
+  font-weight: 500;
   margin: 8px 0 0;
 }
 
@@ -45,25 +57,46 @@ header p {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 20px;
 }
 
 .island img {
   max-width: 280px;
   height: auto;
+  filter: drop-shadow(0 8px 16px rgba(139, 111, 71, 0.15));
+  transition: transform 0.3s ease;
 }
 
-/* BUTTON UNTEN */
+.island img:hover {
+  transform: scale(1.05) translateY(-4px);
+}
+
+/* BUTTONS - weich und elegant */
 button {
-  font-family: "Inria Sans", sans-serif;
-  background-color: #954C15;
+  font-family: 'Inria Sans', sans-serif;
+  background: linear-gradient(135deg, #FF9B71 0%, #FFA07A 100%);
   color: white;
   border: none;
   padding: 16px 32px;
-  border-radius: 999px;
-  font-size: 18px;
-  font-weight: 700;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 600;
   margin-bottom: 24px;
   cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 133, 85, 0.35);
+  background: linear-gradient(135deg, #FFA07A 0%, #FF9B71 100%);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(255, 133, 85, 0.2);
 }
 
 /* DESKTOP-ANSICHT */
@@ -75,21 +108,44 @@ button {
   .island img {
     max-width: 360px;
   }
+  
+  h1 {
+    font-size: 40px;
+  }
 }
 
+/* PFEILE - rund und weich */
 .arrow {
-  background: none;
+  background: white;
   border: none;
-  font-size: 32px;
-  font-weight: 700;
-  color: #954C15;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 600;
+  color: #FF9B71;
   cursor: pointer;
+  box-shadow: 0 2px 12px rgba(255, 155, 113, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.arrow:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 20px rgba(255, 155, 113, 0.3);
+  background: #FFFAF5;
+}
+
+.arrow:active {
+  transform: scale(0.98);
 }
 
 .arrow.left {
-  margin-right: 16px;
+  margin-right: 0;
 }
 
 .arrow.right {
-  margin-left: 16px;
+  margin-left: 0;
 }

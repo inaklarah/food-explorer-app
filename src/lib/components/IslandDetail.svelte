@@ -21,6 +21,13 @@
   $: currentTask = island.tasks[currentTaskIndex];
   $: isComplete = currentTaskIndex >= island.tasks.length;
   
+  // Generiere Sterne für visuellen Fortschritt
+  function getStars(completed, total) {
+    return Array.from({ length: total }, (_, i) => i < completed);
+  }
+  
+  $: stars = getStars(completedTasks.length, island.tasks.length);
+  
   function completeTask() {
     completedTasks = [...completedTasks, currentTask.id];
     
@@ -31,61 +38,70 @@
   }
 </script>
 
+<div class="island-detail-container" style="background: linear-gradient(180deg, {island.bg}22 0%, #FFF9F0 100%);">
 <header>
   <button class="back" on:click={onBack} aria-label="Zurück" style="color: {island.color}">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="29"
-      height="29"
-      viewBox="0 0 29 29"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
       fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
     >
-      <path
-        d="M24.1666 14.5L4.83331 14.5
-           M4.83331 14.5L12.0833 7.25
-           M4.83331 14.5L12.0833 21.75"
-        stroke="currentColor"
-        stroke-width="3"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        style="mix-blend-mode: plus-darker"
-      />
+      <polyline points="15 18 9 12 15 6"/>
     </svg>
   </button>
   <span class="title" style="color: {island.color}">{island.title}</span>
 </header>
 
-<!-- Progress -->
-<div class="progress-bar">
-  <div class="progress-fill" style="width: {(completedTasks.length / island.tasks.length) * 100}%; background: {island.color}"></div>
+<!-- Progress mit Sternen -->
+<div class="stars-progress">
+  {#each stars as filled}
+    <span class="star" class:filled style="color: {island.color};">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+    </span>
+  {/each}
 </div>
-<p class="progress-text">{completedTasks.length} / {island.tasks.length} Aufgaben auf dieser Insel</p>
+<p class="progress-text" style="color: {island.color}">{completedTasks.length} von {island.tasks.length} Aufgaben geschafft</p>
 
   {#if isComplete}
-    <section class="completion-section" style="border-color: {island.color}">
-      <h2 style="color: {island.color}">🎉 Insel-Aufgaben fertig!</h2>
-      <p>Großartig, dass du alle Aufgaben auf dieser Insel gemeistert hast!</p>
+    <section class="completion-section" style="background: {island.bg};">
+      <div class="celebration-icon">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="{island.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      </div>
+      <h2 style="color: {island.color};">Super gemacht!</h2>
+      <p>Du hast alle Aufgaben auf dieser Insel geschafft!</p>
       
       {#if favorites.length > 0}
         <div class="favorites-preview">
-          <p class="preview-label">Du hast {favorites.length} Favoriten gesammelt:</p>
+          <p class="preview-label">Deine Favoriten</p>
           <div class="favorites-mini">
             {#each favorites.slice(-3) as fav}
-              <span class="mini-fav">{fav.food}</span>
+              <span class="mini-fav" style="background: {island.bg}; border-color: {island.color}; color: {island.color};">{fav.food}</span>
             {/each}
           </div>
         </div>
       {/if}
 
-      <button class="back-button" on:click={onBack} style="background: {island.button}">
-        ← Zurück zur Übersicht
+      <button class="back-button" on:click={onBack} style="background: linear-gradient(180deg, {island.button} 0%, {island.button}dd 100%); box-shadow: 0 6px 0 {island.color}99;">
+        Zurück zur Übersicht
       </button>
     </section>
   {:else}
     <!-- Task Section -->
-    <section class="task-section" style="border-color: {island.color}">
-      <div class="task-number">Aufgabe {currentTaskIndex + 1} von {island.tasks.length}</div>
-      <h2 style="color: {island.color}">{currentTask.title}</h2>
+    <section class="task-section" style="background: {island.bg};">
+      <div class="task-badge" style="background: {island.color};">
+        <span>Aufgabe {currentTaskIndex + 1}</span>
+      </div>
+      <h2 style="color: {island.color};">{currentTask.title}</h2>
       <p>{currentTask.description}</p>
     </section>
 
@@ -96,192 +112,268 @@
       on:addfavorite={e => dispatch('addfavorite', e.detail)}
     />
   {/if}
-
+</div>
 
 <style>
+  .island-detail-container {
+    padding: 1.5rem;
+    padding-bottom: 120px;
+    min-height: 100vh;
+  }
 
-  /* Pfeil-Button */
+  /* Header */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-top: 0.5rem;
+  }
+
   .back {
-    width: 29px;
-    height: 29px;
+    width: 48px;
+    height: 48px;
     padding: 0;
-
-    background: none;
+    background: white;
     border: none;
+    border-radius: 50%;
     cursor: pointer;
-
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-
-    transform: translateY(6px);
-    margin: 0;
-    transition: opacity 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
   }
 
   .back:hover {
-    opacity: 0.7;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   }
 
-  /* Titel */
+  .back:active {
+    transform: scale(0.95);
+  }
+
   .title {
     flex: 1;
     text-align: left;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 18px;
-    font-style: normal;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 22px;
     font-weight: 700;
-    line-height: normal;
+    letter-spacing: 0;
   }
 
-  /* Week Badge */
-
-  /* Progress Bar */
-  .progress-bar {
-    width: 100%;
-    height: 8px;
-    background: #e0e0e0;
-    border-radius: 10px;
-    margin-bottom: 8px;
-    overflow: hidden;
+  /* Progress mit Sternen */
+  .stars-progress {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
   }
 
-  .progress-fill {
-    height: 100%;
-    transition: width 0.3s ease;
-    border-radius: 10px;
+  .star {
+    display: inline-flex;
+    opacity: 0.25;
+    transition: all 0.3s ease;
+  }
+
+  .star.filled {
+    opacity: 1;
+    transform: scale(1.15);
+    animation: starPop 0.4s ease;
+  }
+
+  @keyframes starPop {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.3);
+    }
+    100% {
+      transform: scale(1.15);
+    }
   }
 
   .progress-text {
     text-align: center;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 24px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2rem;
   }
 
   /* Task Section */
   .task-section {
-    background: white;
-    border-left: 4px solid;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 24px;
+    border-radius: 28px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
   }
 
-  .task-number {
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 12px;
-    color: #999;
-    margin-bottom: 8px;
+  .task-badge {
+    display: inline-block;
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 50px;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
   .task-section h2 {
-    margin: 0 0 8px 0;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 24px;
+    margin: 0 0 1rem 0;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 28px;
     font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0;
   }
 
   .task-section p {
     margin: 0;
-    color: #666;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
+    color: #5A4A42;
+    font-family: 'Nunito', sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    font-weight: 500;
   }
 
   /* Completion Section */
   .completion-section {
-    background: white;
-    border-left: 4px solid;
-    border-radius: 12px;
-    padding: 40px 20px;
+    border-radius: 28px;
+    padding: 3rem 2rem;
     text-align: center;
-    margin-bottom: 24px;
-    animation: slideIn 0.4s ease-out;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    animation: celebrationPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes celebrationPop {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .celebration-icon {
+    margin: 0 auto 1.5rem;
+    animation: rotate 2s ease-in-out infinite;
+  }
+
+  @keyframes rotate {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-15deg);
+    }
+    75% {
+      transform: rotate(15deg);
+    }
   }
 
   .completion-section h2 {
-    margin: 0 0 16px 0;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 28px;
+    margin: 0 0 1rem 0;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 32px;
     font-weight: 700;
+    letter-spacing: 0;
   }
 
   .completion-section p {
-    margin: 0 0 24px 0;
-    color: #666;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 16px;
+    margin: 0 0 2rem 0;
+    color: #5A4A42;
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
   }
 
   .favorites-preview {
-    background: #FFF5E6;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 24px;
+    background: white;
+    border-radius: 24px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .preview-label {
-    margin: 0 0 12px 0;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 14px;
+    margin: 0 0 1rem 0;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 16px;
     font-weight: 600;
-    color: #333;
+    color: #5A4A42;
   }
 
   .favorites-mini {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 0.75rem;
+    justify-content: center;
   }
 
   .mini-fav {
-    background: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 12px;
+    padding: 0.75rem 1.25rem;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
     font-weight: 600;
-    color: #FF6B9D;
-    border: 1px solid #FFD4E5;
+    border: 2px solid;
   }
 
   .back-button {
-    padding: 12px 32px;
+    padding: 16px 36px;
     border: none;
-    border-radius: 12px;
+    border-radius: 16px;
     color: white;
-    font-family: "Inria Sans", system-ui, sans-serif;
-    font-size: 16px;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: 17px;
     font-weight: 600;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);
+    letter-spacing: 0.02em;
   }
 
   .back-button:hover {
-    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(255, 133, 85, 0.35);
   }
 
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .back-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(255, 133, 85, 0.2);
   }
 
   @media (max-width: 600px) {
     .title {
-      font-size: 16px;
+      font-size: 18px;
     }
 
+    .task-section {
+      padding: 1.5rem;
+    }
+
+    .task-section h2 {
+      font-size: 24px;
+    }
+
+    .completion-section {
+      padding: 2rem 1.5rem;
+    }
+
+    .completion-section h2 {
+      font-size: 28px;
+    }
   }
 </style>
