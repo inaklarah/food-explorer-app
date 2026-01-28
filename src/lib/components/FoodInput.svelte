@@ -205,34 +205,35 @@
   .food-input-container {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: clamp(1rem, 3vw, 1.5rem);
+    padding: clamp(1rem, 3vw, 1.5rem);
   }
 
   .input-section {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: clamp(0.75rem, 2vw, 1rem);
   }
 
   label {
     font-family: 'Inria Sans', sans-serif;
-    font-size: 18px;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
     font-weight: 600;
     color: #5A4A42;
   }
 
   .input-wrapper {
     display: flex;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 1.5vw, 0.75rem);
   }
 
   input {
     flex: 1;
-    padding: 16px 20px;
+    min-width: 0;
+    padding: clamp(1rem, 2vw, 1.25rem) clamp(1rem, 2.5vw, 1.25rem);
     border: 3px solid;
-    border-radius: 16px;
-    font-size: 17px;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
+    font-size: clamp(1rem, 2.5vw, 1.0625rem);
     font-family: 'Inria Sans', sans-serif;
     transition: all 0.2s ease;
     background: white;
@@ -250,12 +251,14 @@
   }
 
   .submit-btn {
-    width: 56px;
-    height: 56px;
+    width: clamp(3rem, 10vw, 3.5rem);
+    height: clamp(3rem, 10vw, 3.5rem);
+    min-width: 3rem;
+    min-height: 3rem;
     border: none;
     border-radius: 50%;
     color: white;
-    font-size: 24px;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
     font-weight: 700;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -263,6 +266,8 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .submit-btn:disabled {
@@ -281,8 +286,8 @@
   .error {
     background: #FFE8E8;
     border: 3px solid #FF6B6B;
-    border-radius: 16px;
-    padding: 1.25rem;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
+    padding: clamp(1rem, 2vw, 1.25rem);
   }
 
   .error p {
@@ -290,41 +295,44 @@
     color: #C92A2A;
     font-family: 'Inria Sans', sans-serif;
     font-weight: 600;
+    font-size: clamp(0.9375rem, 2vw, 1rem);
   }
 
   .praise-message {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 1.5vw, 0.75rem);
     animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .praise-message svg {
+    width: clamp(2.5rem, 8vw, 3rem);
+    height: clamp(2.5rem, 8vw, 3rem);
     animation: rotate 0.6s ease-in-out;
   }
 
   .praise-message p {
     font-family: 'Inria Sans', sans-serif;
-    font-size: 24px;
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
     font-weight: 600;
     margin: 0;
   }
 
   .info-box {
-    border-radius: 16px;
-    padding: 1.5rem;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
+    padding: clamp(1rem, 2vw, 1.5rem);
     border: 3px solid;
-    margin-bottom: 1.5rem;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
   }
 
   .info-box p {
     margin: 0;
     color: #5A4A42;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 17px;
+    font-size: clamp(1rem, 2.5vw, 1.0625rem);
     line-height: 1.7;
     font-weight: 500;
   }
@@ -332,15 +340,15 @@
   .action-buttons {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: clamp(0.75rem, 2vw, 1rem);
   }
 
   button {
-    padding: 16px 28px;
+    padding: clamp(1rem, 2vw, 1.25rem) clamp(1.5rem, 3vw, 1.75rem);
     border: none;
-    border-radius: 16px;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
     font-family: 'Inria Sans', sans-serif;
-    font-size: 17px;
+    font-size: clamp(1rem, 2.5vw, 1.0625rem);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -349,6 +357,9 @@
     justify-content: center;
     gap: 0.5rem;
     letter-spacing: 0.02em;
+    min-height: 3rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .favorite-button {
@@ -397,6 +408,27 @@
     }
     100% {
       transform: rotate(360deg) scale(1);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .food-input-container {
+      padding: 0.75rem;
+    }
+
+    button {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .action-buttons {
+      flex-direction: row;
+      gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    button {
+      flex: 1;
     }
   }
 </style>

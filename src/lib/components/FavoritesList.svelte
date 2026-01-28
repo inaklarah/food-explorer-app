@@ -311,21 +311,23 @@
     background: linear-gradient(180deg, #FFF9F0 0%, #FFF4E6 100%);
     display: flex;
     flex-direction: column;
-    padding-bottom: 100px;
+    padding-bottom: clamp(6.25rem, 20vw, 8rem);
   }
 
   /* Header */
   header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    padding: 1.5rem 1.5rem 0 1.5rem;
+    gap: clamp(0.75rem, 2vw, 1rem);
+    margin-bottom: clamp(1.25rem, 3vw, 2rem);
+    padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem) 0;
   }
 
   .back-btn {
-    width: 48px;
-    height: 48px;
+    width: clamp(2.75rem, 10vw, 3rem);
+    height: clamp(2.75rem, 10vw, 3rem);
+    min-width: 3rem;
+    min-height: 3rem;
     padding: 0;
     background: white;
     border: none;
@@ -338,6 +340,8 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
     color: #FF9B71;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .back-btn:hover {
@@ -353,15 +357,16 @@
     flex: 1;
     text-align: left;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 22px;
+    font-size: clamp(1.125rem, 4vw, 1.375rem);
     font-weight: 700;
     letter-spacing: 0;
+    min-width: 0;
   }
 
   /* Content */
   .content {
     flex: 1;
-    padding: 2rem 1.5rem;
+    padding: clamp(1rem, 3vw, 2rem);
     overflow-y: auto;
   }
 
@@ -371,14 +376,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 400px;
+    min-height: 25rem;
     text-align: center;
-    padding: 2rem;
+    padding: clamp(1rem, 2vw, 2rem);
   }
 
   .empty-icon {
-    margin-bottom: 2rem;
+    margin-bottom: clamp(1rem, 3vw, 2rem);
     animation: float 3s ease-in-out infinite;
+    width: clamp(80px, 20vw, 120px);
+    height: clamp(80px, 20vw, 120px);
   }
 
   @keyframes float {
@@ -386,14 +393,14 @@
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-15px);
+      transform: translateY(-1rem);
     }
   }
 
   .empty-state h2 {
-    margin: 0 0 1rem 0;
+    margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 28px;
+    font-size: clamp(1.5rem, 5vw, 1.75rem);
     font-weight: 700;
     color: #7D5A3D;
   }
@@ -401,7 +408,7 @@
   .empty-state p {
     margin: 0;
     color: #A08875;
-    font-size: 17px;
+    font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
     line-height: 1.6;
     font-weight: 500;
   }
@@ -410,12 +417,12 @@
   .islands-container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: clamp(1.5rem, 3vw, 2rem);
   }
 
   /* Island Section */
   .island-section {
-    border-radius: 20px;
+    border-radius: clamp(1rem, 3vw, 1.25rem);
     overflow: hidden;
     background: white;
     box-shadow: 0 4px 16px rgba(125, 90, 61, 0.08);
@@ -423,19 +430,19 @@
 
   /* Island Header */
   .island-header {
-    padding: 1.25rem 1.5rem;
+    padding: clamp(1rem, 2vw, 1.25rem);
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
   }
 
   .island-header-content {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: clamp(0.75rem, 2vw, 1rem);
   }
 
   .island-icon {
-    width: 56px;
-    height: 56px;
+    width: clamp(3rem, 10vw, 3.5rem);
+    height: clamp(3rem, 10vw, 3.5rem);
     border-radius: 50%;
     border: 3px solid;
     overflow: hidden;
@@ -455,14 +462,15 @@
   .island-info h2 {
     margin: 0;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 22px;
+    font-size: clamp(1.125rem, 3vw, 1.375rem);
     font-weight: 700;
     letter-spacing: 0.01em;
+    line-height: 1.3;
   }
 
   .island-count {
-    margin: 0.25rem 0 0 0;
-    font-size: 14px;
+    margin: clamp(0.125rem, 0.5vw, 0.25rem) 0 0 0;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
     font-weight: 600;
     color: #A08875;
   }
@@ -477,12 +485,13 @@
   /* Favorite Item (Listen-Darstellung) */
   .favorite-item {
     background: white;
-    padding: 1rem 1.5rem;
+    padding: clamp(0.75rem, 2vw, 1rem);
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: clamp(0.75rem, 2vw, 1rem);
     border-bottom: 1px solid #FFE8D6;
     transition: all 0.2s ease;
+    min-height: 3.5rem;
   }
 
   .favorite-item:last-child {
@@ -514,21 +523,24 @@
   }
 
   .checkbox-custom {
-    width: 24px;
-    height: 24px;
+    width: clamp(1.25rem, 5vw, 1.5rem);
+    height: clamp(1.25rem, 5vw, 1.5rem);
     border: 2.5px solid;
-    border-radius: 6px;
+    border-radius: clamp(0.375rem, 1vw, 0.5rem);
     background: white;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
+    flex-shrink: 0;
   }
 
   .checkbox-custom svg {
     opacity: 0;
     transform: scale(0.5);
     transition: all 0.2s ease;
+    width: 70%;
+    height: 70%;
   }
 
   .checkbox-container input:checked + .checkbox-custom {
@@ -545,9 +557,9 @@
   }
 
   .item-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+    width: clamp(2.5rem, 6vw, 2.75rem);
+    height: clamp(2.5rem, 6vw, 2.75rem);
+    border-radius: clamp(0.5rem, 1vw, 0.75rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -560,18 +572,19 @@
   }
 
   .food-name {
-    margin: 0 0 0.25rem 0;
+    margin: 0 0 clamp(0.125rem, 0.5vw, 0.25rem) 0;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 17px;
+    font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
     font-weight: 700;
     color: #7D5A3D;
     letter-spacing: 0;
     line-height: 1.3;
+    word-wrap: break-word;
   }
 
   .timestamp {
     margin: 0;
-    font-size: 13px;
+    font-size: clamp(0.75rem, 2vw, 0.8125rem);
     color: #C4B5A8;
     font-weight: 500;
   }
@@ -586,7 +599,11 @@
     justify-content: center;
     transition: all 0.2s ease;
     flex-shrink: 0;
-    padding: 4px;
+    padding: clamp(0.25rem, 1vw, 0.5rem);
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .remove-btn:hover {
@@ -600,45 +617,47 @@
 
   /* Recipe Section */
   .recipe-section {
-    margin-top: 2rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: clamp(1.5rem, 3vw, 2rem);
+    max-width: 100%;
+    width: 100%;
   }
 
   /* Mahlzeit-Auswahl */
   .meal-type-selector {
-    margin-bottom: 1.5rem;
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
   }
 
   .meal-type-label {
     display: block;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 16px;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
     font-weight: 600;
     color: #7D5A3D;
-    margin-bottom: 0.75rem;
+    margin-bottom: clamp(0.5rem, 1.5vw, 0.75rem);
   }
 
   .meal-type-options {
     display: flex;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 1.5vw, 0.75rem);
     flex-wrap: wrap;
   }
 
   .meal-type-btn {
     flex: 1;
-    min-width: 120px;
-    padding: 0.875rem 1rem;
+    min-width: clamp(100px, 25vw, 120px);
+    padding: clamp(0.625rem, 1.5vw, 0.875rem) clamp(0.75rem, 1.5vw, 1rem);
     border: 2px solid #FFE8D6;
-    border-radius: 12px;
+    border-radius: clamp(0.625rem, 1.5vw, 0.75rem);
     background: white;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.375rem;
+    gap: clamp(0.25rem, 1vw, 0.375rem);
     transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 2.75rem;
   }
 
   .meal-type-btn:hover {
@@ -654,13 +673,13 @@
   }
 
   .meal-icon {
-    font-size: 28px;
+    font-size: clamp(1.5rem, 4vw, 1.75rem);
     line-height: 1;
   }
 
   .meal-label {
     font-family: 'Inria Sans', sans-serif;
-    font-size: 14px;
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
     font-weight: 600;
   }
 
@@ -682,13 +701,13 @@
 
   .recipe-generator-btn {
     width: 100%;
-    padding: 18px 32px;
+    padding: clamp(1rem, 2vw, 1.125rem) clamp(1.5rem, 3vw, 2rem);
     background: linear-gradient(135deg, #FF9B71 0%, #FFA07A 100%);
     color: white;
     border: none;
-    border-radius: 16px;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
     font-family: 'Inria Sans', sans-serif;
-    font-size: 17px;
+    font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -696,8 +715,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 1.5vw, 0.75rem);
     letter-spacing: 0.02em;
+    min-height: 3rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .recipe-generator-btn:hover:not(:disabled) {
@@ -731,67 +753,81 @@
   }
 
   .recipe-box {
-    margin-top: 1.5rem;
+    margin-top: clamp(1rem, 2vw, 1.5rem);
     background: white;
-    border-radius: 28px;
+    border-radius: clamp(1.25rem, 3vw, 1.75rem);
     overflow: hidden;
     box-shadow: 0 8px 24px rgba(139, 111, 71, 0.15);
   }
 
   .recipe-header {
-    padding: 1.5rem;
+    padding: clamp(1rem, 2vw, 1.5rem);
     background: linear-gradient(135deg, #FF9B71 0%, #FFB347 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 1.5vw, 0.75rem);
   }
 
   .recipe-header h2 {
     margin: 0;
     color: white;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 24px;
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
     font-weight: 700;
     letter-spacing: 0;
   }
 
+  .recipe-header svg {
+    width: clamp(1.5rem, 5vw, 2rem);
+    height: clamp(1.5rem, 5vw, 2rem);
+    flex-shrink: 0;
+  }
+
   .recipe-content {
-    padding: 1.75rem;
+    padding: clamp(1rem, 2vw, 1.75rem);
   }
 
   .formatted-recipe :global(p) {
-    font-size: 17px;
+    font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
     color: #5A4A42;
-    margin: 1rem 0;
+    margin: clamp(0.75rem, 2vw, 1rem) 0;
     line-height: 1.7;
     font-weight: 500;
   }
 
   .formatted-recipe :global(ul) {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
+    margin: clamp(0.75rem, 2vw, 1rem) 0;
+    padding-left: clamp(1rem, 3vw, 1.5rem);
   }
 
   .formatted-recipe :global(li) {
-    margin-bottom: 0.75rem;
-    font-size: 17px;
+    margin-bottom: clamp(0.5rem, 1.5vw, 0.75rem);
+    font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
     color: #5A4A42;
     line-height: 1.6;
     font-weight: 500;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 480px) {
     .content {
-      padding: 1.5rem 1rem;
+      padding: clamp(0.75rem, 2vw, 1rem);
     }
 
-    .food-name {
-      font-size: 18px;
+    header {
+      padding: clamp(0.75rem, 2vw, 1rem) clamp(0.75rem, 2vw, 1rem) 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .content {
+      padding: clamp(1.5rem, 3vw, 2rem);
     }
 
-    .recipe-header h2 {
-      font-size: 20px;
+    .recipe-section {
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 </style>

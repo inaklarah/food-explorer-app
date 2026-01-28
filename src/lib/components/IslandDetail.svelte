@@ -116,8 +116,8 @@
 
 <style>
   .island-detail-container {
-    padding: 1.5rem;
-    padding-bottom: 120px;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    padding-bottom: clamp(7.5rem, 20vw, 8rem);
     min-height: 100vh;
   }
 
@@ -125,14 +125,16 @@
   header {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: clamp(0.75rem, 2vw, 1rem);
+    margin-bottom: clamp(1.25rem, 3vw, 2rem);
     padding-top: 0.5rem;
   }
 
   .back {
-    width: 48px;
-    height: 48px;
+    width: clamp(3rem, 10vw, 3rem);
+    height: clamp(3rem, 10vw, 3rem);
+    min-width: 3rem;
+    min-height: 3rem;
     padding: 0;
     background: white;
     border: none;
@@ -144,6 +146,8 @@
     flex-shrink: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .back:hover {
@@ -159,17 +163,20 @@
     flex: 1;
     text-align: left;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 22px;
+    font-size: clamp(1.25rem, 4vw, 1.375rem);
     font-weight: 700;
     letter-spacing: 0;
+    line-height: 1.3;
+    min-width: 0;
+    word-wrap: break-word;
   }
 
   /* Progress mit Sternen */
   .stars-progress {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: clamp(0.25rem, 1vw, 0.5rem);
+    margin-bottom: 0.75rem;
     flex-wrap: wrap;
   }
 
@@ -177,6 +184,7 @@
     display: inline-flex;
     opacity: 0.25;
     transition: all 0.3s ease;
+    min-width: fit-content;
   }
 
   .star.filled {
@@ -200,16 +208,16 @@
   .progress-text {
     text-align: center;
     font-family: 'Nunito', sans-serif;
-    font-size: 16px;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
   }
 
   /* Task Section */
   .task-section {
-    border-radius: 28px;
-    padding: 2rem;
-    margin-bottom: 1.5rem;
+    border-radius: clamp(1.5rem, 4vw, 1.75rem);
+    padding: clamp(1.25rem, 4vw, 2rem);
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
@@ -218,20 +226,20 @@
   .task-badge {
     display: inline-block;
     color: white;
-    padding: 0.5rem 1.25rem;
+    padding: clamp(0.375rem, 1.5vw, 0.5rem) clamp(0.75rem, 2.5vw, 1.25rem);
     border-radius: 50px;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 14px;
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
     font-weight: 600;
-    margin-bottom: 1.25rem;
+    margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
   .task-section h2 {
-    margin: 0 0 1rem 0;
+    margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 28px;
+    font-size: clamp(1.5rem, 5vw, 1.75rem);
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: 0;
@@ -241,15 +249,15 @@
     margin: 0;
     color: #5A4A42;
     font-family: 'Nunito', sans-serif;
-    font-size: 17px;
+    font-size: clamp(1rem, 3vw, 1.0625rem);
     line-height: 1.6;
     font-weight: 500;
   }
 
   /* Completion Section */
   .completion-section {
-    border-radius: 28px;
-    padding: 3rem 2rem;
+    border-radius: clamp(1.5rem, 4vw, 1.75rem);
+    padding: clamp(1.5rem, 4vw, 2rem);
     text-align: center;
     margin-bottom: 1.5rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -268,8 +276,11 @@
   }
 
   .celebration-icon {
-    margin: 0 auto 1.5rem;
+    margin: 0 auto clamp(1rem, 2vw, 1.5rem);
     animation: rotate 2s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   @keyframes rotate {
@@ -285,32 +296,32 @@
   }
 
   .completion-section h2 {
-    margin: 0 0 1rem 0;
+    margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 32px;
+    font-size: clamp(1.75rem, 6vw, 2rem);
     font-weight: 700;
     letter-spacing: 0;
   }
 
   .completion-section p {
-    margin: 0 0 2rem 0;
+    margin: 0 0 clamp(1rem, 3vw, 1.5rem) 0;
     color: #5A4A42;
     font-family: 'Nunito', sans-serif;
-    font-size: 18px;
+    font-size: clamp(1rem, 3vw, 1.125rem);
     font-weight: 500;
   }
 
   .favorites-preview {
     background: white;
-    border-radius: 24px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    border-radius: clamp(1rem, 3vw, 1.5rem);
+    padding: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: clamp(1rem, 3vw, 2rem);
   }
 
   .preview-label {
-    margin: 0 0 1rem 0;
+    margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 16px;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
     font-weight: 600;
     color: #5A4A42;
   }
@@ -318,31 +329,34 @@
   .favorites-mini {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: clamp(0.5rem, 2vw, 0.75rem);
     justify-content: center;
   }
 
   .mini-fav {
-    padding: 0.75rem 1.25rem;
+    padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1.25rem);
     border-radius: 50px;
     font-family: 'Nunito', sans-serif;
-    font-size: 15px;
+    font-size: clamp(0.875rem, 2vw, 0.9375rem);
     font-weight: 600;
     border: 2px solid;
   }
 
   .back-button {
-    padding: 16px 36px;
+    padding: clamp(1rem, 3vw, 1.25rem) clamp(1.5rem, 4vw, 2.25rem);
     border: none;
-    border-radius: 16px;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
     color: white;
     font-family: 'Inria Sans', sans-serif;
-    font-size: 17px;
+    font-size: clamp(1rem, 2.5vw, 1.0625rem);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);
     letter-spacing: 0.02em;
+    min-height: 3rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .back-button:hover {
@@ -355,25 +369,37 @@
     box-shadow: 0 2px 8px rgba(255, 133, 85, 0.2);
   }
 
-  @media (max-width: 600px) {
-    .title {
-      font-size: 18px;
+  @media (max-width: 480px) {
+    .island-detail-container {
+      padding: 0.75rem;
+      padding-bottom: 7rem;
     }
 
-    .task-section {
-      padding: 1.5rem;
+    .title {
+      font-size: 1.125rem;
     }
 
     .task-section h2 {
-      font-size: 24px;
-    }
-
-    .completion-section {
-      padding: 2rem 1.5rem;
+      font-size: 1.5rem;
     }
 
     .completion-section h2 {
-      font-size: 28px;
+      font-size: 1.625rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .island-detail-container {
+      padding: 2rem;
+      padding-bottom: 5rem;
+    }
+
+    .task-section {
+      padding: 2.5rem;
+    }
+
+    .completion-section {
+      padding: 3rem 2rem;
     }
   }
 </style>

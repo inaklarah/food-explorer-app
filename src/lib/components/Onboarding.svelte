@@ -116,7 +116,7 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #FFF9F0 0%, #FFE8CC 50%, #FFD4A3 100%);
   position: relative;
-  padding: 48px 32px;
+  padding: clamp(1.5rem, 5vw, 3rem);
   overflow: hidden;
 }
 
@@ -129,26 +129,26 @@
 }
 
 .bubble-1 {
-  width: 200px;
-  height: 200px;
+  width: clamp(120px, 30vw, 200px);
+  height: clamp(120px, 30vw, 200px);
   background: #FF9B71;
   top: 10%;
-  left: -50px;
+  left: clamp(-30px, -5vw, -50px);
   animation-delay: 0s;
 }
 
 .bubble-2 {
-  width: 150px;
-  height: 150px;
+  width: clamp(90px, 20vw, 150px);
+  height: clamp(90px, 20vw, 150px);
   background: #FFB347;
   bottom: 15%;
-  right: -40px;
+  right: clamp(-20px, -3vw, -40px);
   animation-delay: 7s;
 }
 
 .bubble-3 {
-  width: 120px;
-  height: 120px;
+  width: clamp(80px, 15vw, 120px);
+  height: clamp(80px, 15vw, 120px);
   background: #FFA07A;
   top: 50%;
   right: 10%;
@@ -170,7 +170,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 96px);
+  min-height: calc(100vh - clamp(3rem, 10vw, 6rem));
   position: relative;
   z-index: 1;
 }
@@ -178,17 +178,17 @@
 /* Textbereich */
 section {
   text-align: center;
-  margin-top: 60px;
+  margin-top: clamp(2rem, 6vw, 3.75rem);
   flex: 1;
 }
 
 /* Icon */
 .icon {
-  width: 140px;
-  height: 140px;
+  width: clamp(100px, 25vw, 140px);
+  height: clamp(100px, 25vw, 140px);
   background: linear-gradient(135deg, #FF9B71 0%, #FF8555 100%);
   border-radius: 50%;
-  margin: 0 auto 40px;
+  margin: 0 auto clamp(2rem, 4vw, 2.5rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -201,24 +201,24 @@ section {
 h1 {
   font-family: 'Inria Sans', sans-serif;
   color: #7D5A3D;
-  font-size: 36px;
+  font-size: clamp(1.75rem, 6vw, 2.25rem);
   font-weight: 700;
   line-height: 1.3;
-  margin-bottom: 32px;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
   letter-spacing: 0.01em;
 }
 
 .lead {
   color: #7D5A3D;
-  font-size: 18px;
+  font-size: clamp(1rem, 3.5vw, 1.125rem);
   line-height: 1.7;
-  margin-bottom: 24px;
+  margin-bottom: clamp(1.25rem, 3vw, 1.5rem);
   font-weight: 500;
 }
 
 .sub {
   color: #A08875;
-  font-size: 16px;
+  font-size: clamp(0.875rem, 3vw, 1rem);
   line-height: 1.7;
   font-weight: 400;
 }
@@ -227,14 +227,14 @@ h1 {
 button {
   margin-top: auto;
   width: 100%;
-  max-width: 280px;
-  height: 56px;
+  max-width: clamp(200px, 80vw, 280px);
+  height: clamp(2.75rem, 8vw, 3.5rem);
   background: linear-gradient(135deg, #FF9B71 0%, #FFA07A 100%);
   color: #ffffff;
   border: none;
-  border-radius: 16px;
+  border-radius: clamp(0.75rem, 2vw, 1rem);
   font-family: 'Inria Sans', sans-serif;
-  font-size: 18px;
+  font-size: clamp(1rem, 3vw, 1.125rem);
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);
@@ -242,6 +242,9 @@ button {
   margin-left: auto;
   margin-right: auto;
   letter-spacing: 0.02em;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 3rem;
 }
 
 button:hover {
@@ -257,12 +260,12 @@ button:active {
 
 /* Tiger Avatar */
 .tiger-avatar {
-  width: 140px;
-  height: 140px;
+  width: clamp(100px, 25vw, 140px);
+  height: clamp(100px, 25vw, 140px);
   border-radius: 50%;
-  margin: 0 auto 40px;
+  margin: 0 auto clamp(2rem, 4vw, 2.5rem);
   overflow: hidden;
-  border: 5px solid #FF9B71;
+  border: clamp(3px, 1vw, 5px) solid #FF9B71;
   box-shadow: 
     0 8px 24px rgba(255, 133, 85, 0.3),
     0 0 0 12px rgba(255, 155, 113, 0.1);
@@ -278,24 +281,26 @@ button:active {
 .name-prompt {
   font-weight: 600;
   color: #7D5A3D;
-  font-size: 17px;
-  margin-bottom: 20px;
+  font-size: clamp(1rem, 3vw, 1.0625rem);
+  margin-bottom: clamp(1.25rem, 2vw, 1.5rem);
 }
 
 .name-input {
   width: 100%;
-  max-width: 320px;
-  padding: 16px 20px;
+  max-width: clamp(200px, 80vw, 320px);
+  padding: clamp(1rem, 2vw, 1.25rem) clamp(1rem, 2.5vw, 1.25rem);
   border: 3px solid #FF9B71;
-  border-radius: 16px;
+  border-radius: clamp(0.75rem, 2vw, 1rem);
   font-family: 'Inria Sans', sans-serif;
-  font-size: 17px;
+  font-size: clamp(1rem, 3vw, 1.0625rem);
   text-align: center;
   background: white;
   color: #5A4A42;
-  margin: 0 auto 32px;
+  margin: 0 auto clamp(1.5rem, 3vw, 2rem);
   display: block;
   transition: all 0.2s ease;
+  min-height: 3rem;
+  touch-action: manipulation;
 }
 
 .name-input:focus {
@@ -312,10 +317,10 @@ button:active {
 .button-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: clamp(0.75rem, 2vw, 1rem);
   margin-top: auto;
   width: 100%;
-  max-width: 280px;
+  max-width: clamp(200px, 80vw, 280px);
   margin-left: auto;
   margin-right: auto;
 }
@@ -325,7 +330,7 @@ button.secondary {
   color: #A08875;
   border: 2px solid #FFE8D6;
   box-shadow: none;
-  font-size: 16px;
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
 }
 
 button.secondary:hover {
@@ -336,13 +341,29 @@ button.secondary:hover {
   box-shadow: none;
 }
 
-@media (min-width: 600px) {
+button.secondary:active {
+  transform: translateY(-1px);
+}
+
+@media (min-width: 768px) {
+  .onboarding {
+    padding: clamp(2rem, 5vw, 3rem);
+  }
+
   h1 {
-    font-size: 42px;
+    font-size: clamp(2rem, 7vw, 2.625rem);
   }
   
   .lead {
-    font-size: 20px;
+    font-size: clamp(1.125rem, 3vw, 1.25rem);
+  }
+
+  .content {
+    min-height: calc(100vh - clamp(6rem, 10vw, 9rem));
+  }
+
+  section {
+    margin-top: clamp(3rem, 8vw, 4rem);
   }
 }
 

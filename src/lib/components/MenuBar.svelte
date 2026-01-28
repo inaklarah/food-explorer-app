@@ -62,10 +62,11 @@
     background: white;
     display: flex;
     justify-content: space-around;
-    padding: 0.75rem 0.5rem 0.5rem;
+    padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.25rem, 1vw, 0.5rem) clamp(0.375rem, 1vw, 0.5rem);
     box-shadow: 0 -4px 20px rgba(139, 111, 71, 0.15);
     z-index: 1000;
     border-top: none;
+    gap: clamp(0.25rem, 1vw, 0.5rem);
   }
 
   .menu-item {
@@ -73,20 +74,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.375rem;
-    padding: 0.625rem 0.75rem;
+    gap: clamp(0.25rem, 1vw, 0.375rem);
+    padding: clamp(0.5rem, 1.5vw, 0.625rem) clamp(0.5rem, 1.5vw, 0.75rem);
     background: none;
     border: none;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     color: #A08875;
-    border-radius: 16px;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
+    min-height: 3rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .menu-item:hover {
     background: #FFF4E6;
     transform: translateY(-2px);
+  }
+
+  .menu-item:active {
+    transform: translateY(0);
   }
 
   .menu-item.active {
@@ -113,17 +121,31 @@
     align-items: center;
     justify-content: center;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    width: clamp(1.25rem, 6vw, 1.5rem);
+    height: clamp(1.25rem, 6vw, 1.5rem);
   }
 
   .label {
     font-family: 'Inria Sans', sans-serif;
-    font-size: 0.8rem;
+    font-size: clamp(0.625rem, 2vw, 0.8rem);
     font-weight: 600;
     letter-spacing: 0.01em;
+    line-height: 1.1;
   }
 
   /* Platz für die fixierte MenuBar schaffen */
   :global(body) {
-    padding-bottom: 80px;
+    padding-bottom: clamp(4rem, 12vw, 5rem);
+  }
+
+  @media (min-width: 768px) {
+    .menu-bar {
+      padding: clamp(0.5rem, 1vw, 0.75rem);
+      gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .menu-item {
+      padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
+    }
   }
 </style>

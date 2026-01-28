@@ -96,9 +96,9 @@
 
 <style>
   .home-container {
-    padding: 1.5rem;
-    padding-bottom: 100px;
-    max-width: 800px;
+    padding: 1rem;
+    padding-bottom: clamp(6.25rem, 20vw, 8rem);
+    max-width: 100%;
     margin: 0 auto;
     background: linear-gradient(180deg, #FFF9F0 0%, #FFF4E6 100%);
     min-height: 100vh;
@@ -106,31 +106,34 @@
 
   .home-header {
     text-align: center;
-    margin-bottom: 2rem;
-    margin-top: 1rem;
+    margin-bottom: max(1.5rem, 2vw);
+    margin-top: 0.75rem;
   }
 
   .home-header h1 {
     font-family: 'Inria Sans', sans-serif;
-    font-size: 2.5rem;
+    font-size: clamp(1.75rem, 6vw, 2.5rem);
     margin-bottom: 0.75rem;
     color: #7D5A3D;
     letter-spacing: 0.01em;
+    line-height: 1.3;
   }
 
   .subtitle {
     color: #A08875;
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 3.5vw, 1.1rem);
     font-weight: 500;
+    line-height: 1.5;
   }
 
   .stats-card {
     display: flex;
     justify-content: space-around;
+    gap: 1rem;
     background: white;
-    border-radius: 28px;
-    padding: 1.75rem;
-    margin-bottom: 2rem;
+    border-radius: clamp(1.5rem, 4vw, 1.75rem);
+    padding: clamp(1.25rem, 4vw, 1.75rem);
+    margin-bottom: clamp(1.5rem, 4vw, 2rem);
     box-shadow: 0 4px 16px rgba(139, 111, 71, 0.12);
   }
 
@@ -139,51 +142,58 @@
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
   }
 
   .stat-icon {
-    width: 48px;
-    height: 48px;
+    width: clamp(2.75rem, 8vw, 3rem);
+    height: clamp(2.75rem, 8vw, 3rem);
     background: linear-gradient(135deg, #FFE8CC 0%, #FFD4A3 100%);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #FF9B71;
+    flex-shrink: 0;
   }
 
   .stat-value {
     font-family: 'Inria Sans', sans-serif;
-    font-size: 2.25rem;
+    font-size: clamp(1.5rem, 5vw, 2.25rem);
     font-weight: 700;
     color: #7D5A3D;
   }
 
   .stat-label {
-    font-size: 0.95rem;
+    font-size: clamp(0.75rem, 2.5vw, 0.95rem);
     color: #A08875;
     font-weight: 600;
+    text-align: center;
   }
 
   .islands-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 40vw, 180px), 1fr));
+    gap: clamp(0.75rem, 3vw, 1.25rem);
+    padding: 0 clamp(0, 2vw, 1rem);
   }
 
   .island-card {
     position: relative;
     border: none;
-    border-radius: 24px;
-    padding: 1.25rem;
+    border-radius: clamp(1.25rem, 3vw, 1.5rem);
+    padding: clamp(0.75rem, 3vw, 1.25rem);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(139, 111, 71, 0.15);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    min-height: 220px;
+    gap: 0.75rem;
+    min-height: clamp(200px, 50vw, 220px);
     text-align: left;
+    touch-action: manipulation;
+    min-width: 0;
   }
 
   .island-card:hover {
@@ -195,6 +205,12 @@
     transform: translateY(-2px) scale(1);
   }
 
+  @media (hover: none) {
+    .island-card:active {
+      transform: scale(0.98);
+    }
+  }
+
   .island-image-container {
     flex: 1;
     display: flex;
@@ -204,8 +220,8 @@
   }
 
   .island-image {
-    max-width: 90px;
-    max-height: 90px;
+    max-width: clamp(70px, 15vw, 90px);
+    max-height: clamp(70px, 15vw, 90px);
     object-fit: contain;
     filter: drop-shadow(0 4px 8px rgba(139, 111, 71, 0.15));
     transition: transform 0.3s ease;
@@ -218,22 +234,24 @@
   .island-content {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    flex: 1;
   }
 
   .island-content h3 {
     font-family: 'Inria Sans', sans-serif;
-    font-size: 1.15rem;
+    font-size: clamp(1rem, 3vw, 1.15rem);
     font-weight: 600;
     margin: 0;
     text-align: center;
     letter-spacing: 0;
+    line-height: 1.3;
   }
 
   .stars-container {
     display: flex;
     justify-content: center;
-    gap: 0.25rem;
+    gap: clamp(0.125rem, 1vw, 0.25rem);
     flex-wrap: wrap;
   }
 
@@ -265,8 +283,8 @@
     top: 0.75rem;
     right: 0.75rem;
     color: white;
-    width: 32px;
-    height: 32px;
+    width: clamp(28px, 7vw, 32px);
+    height: clamp(28px, 7vw, 32px);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -275,13 +293,35 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
-  @media (max-width: 600px) {
-    .home-header h1 {
-      font-size: 2rem;
+  @media (max-width: 480px) {
+    .home-container {
+      padding: 0.75rem;
     }
-    
+
+    .home-header h1 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+
     .islands-grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .home-container {
+      max-width: 900px;
+      padding-top: 2rem;
+    }
+
+    .islands-grid {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .islands-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
   }
 </style>

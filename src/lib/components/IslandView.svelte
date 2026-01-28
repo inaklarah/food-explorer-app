@@ -122,8 +122,8 @@
 <style>
   main {
     min-height: 100vh;
-    padding: 32px 20px;
-    padding-bottom: 120px;
+    padding: clamp(1.5rem, 5vw, 2rem) clamp(1rem, 3vw, 1.5rem);
+    padding-bottom: clamp(7.5rem, 20vw, 10rem);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -132,23 +132,24 @@
 
   header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
     width: 100%;
   }
 
   header h1 {
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 clamp(0.75rem, 2vw, 1.5rem) 0;
     font-family: 'Quicksand', 'Poppins', sans-serif;
-    font-size: 36px;
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
     font-weight: 700;
     letter-spacing: 0.01em;
+    line-height: 1.2;
   }
 
   .stars-progress {
     display: flex;
     justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: clamp(0.25rem, 1vw, 0.5rem);
+    margin-bottom: 0.75rem;
     flex-wrap: wrap;
   }
 
@@ -156,6 +157,7 @@
     display: inline-flex;
     opacity: 0.25;
     transition: all 0.2s ease;
+    min-width: fit-content;
   }
 
   .star.filled {
@@ -164,7 +166,7 @@
   }
 
   .progress-text {
-    font-size: 16px;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
     font-weight: 600;
     margin: 0;
     opacity: 0.9;
@@ -177,8 +179,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin: 20px 0;
+    gap: clamp(0.5rem, 2vw, 1rem);
+    margin: clamp(1rem, 3vw, 2rem) 0;
     flex: 1;
   }
 
@@ -187,12 +189,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 320px;
+    max-width: min(320px, 90vw);
+    aspect-ratio: 1 / 1;
   }
 
   .island img {
     width: 100%;
     height: auto;
+    max-width: 100%;
     object-fit: contain;
     filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -218,7 +222,11 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    padding: 8px;
+    padding: clamp(0.5rem, 2vw, 0.75rem);
+    min-width: clamp(2.5rem, 8vw, 3rem);
+    min-height: clamp(2.5rem, 8vw, 3rem);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .arrow:hover {
@@ -231,19 +239,22 @@
 
   .cta {
     width: 100%;
-    max-width: 320px;
-    padding: 18px 36px;
+    max-width: clamp(280px, 90vw, 320px);
+    padding: clamp(1rem, 3vw, 1.125rem) clamp(1.5rem, 5vw, 2.25rem);
     border: none;
-    border-radius: 16px;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
     color: white;
     font-family: 'Quicksand', 'Poppins', sans-serif;
-    font-size: 18px;
+    font-size: clamp(1rem, 3vw, 1.125rem);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    margin-top: 20px;
+    margin-top: clamp(1rem, 3vw, 1.5rem);
     box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);
     letter-spacing: 0.02em;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 3rem;
   }
 
   .cta:hover {
@@ -256,28 +267,33 @@
     box-shadow: 0 2px 8px rgba(255, 133, 85, 0.2);
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 480px) {
     main {
-      padding: 24px 16px;
-      padding-bottom: 120px;
+      padding: 1rem 0.75rem;
+      padding-bottom: 7.5rem;
     }
 
     header h1 {
-      font-size: 28px;
-    }
-
-    .arrow {
-      width: 48px;
-      height: 48px;
+      font-size: 1.75rem;
     }
 
     .island-image-wrapper {
-      max-width: 240px;
+      max-width: min(240px, 80vw);
+    }
+  }
+
+  @media (min-width: 768px) {
+    main {
+      padding: 2rem;
+      padding-bottom: 5rem;
     }
 
-    .cta {
-      max-width: 100%;
-      font-size: 18px;
+    header h1 {
+      font-size: 2.25rem;
+    }
+
+    .island {
+      gap: 2rem;
     }
   }
 </style>
