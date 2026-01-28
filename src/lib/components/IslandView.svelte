@@ -40,6 +40,37 @@
   }
   
   $: stars = getStars(completedCount, island.tasks.length);
+  
+  // Berechne das dynamische Bild basierend auf Fortschritt
+  $: displayImage = getDisplayImage(island.title, completedCount, island.tasks.length);
+  
+  function getDisplayImage(islandTitle, completed, total) {
+    const isComplete = completed >= total;
+    
+    // Für abgeschlossene Inseln: fertig-Bild (nur für Gemüse verfügbar)
+    if (isComplete && islandTitle === "Gemüseinsel") {
+      return `/islands/Fortschritt Gemüse/gemuese_fertig.png`;
+    }
+    
+    // Normalisiere den Inseltitel (z.B. "Getreideinsel" -> "Getreide", "Gemüseinsel" -> "Gemüse")
+    const normalizedTitle = islandTitle.replace(/insel/i, '').trim();
+    const imagePrefix = islandTitle.toLowerCase().replace(/insel/i, '').trim();
+    
+    // Für Gemüse: 1 abgeschlossene = Bild 1, 2 abgeschlossene = Bild 2, etc.
+    // Für Getreide: 1 abgeschlossene = Bild 2, 2 abgeschlossene = Bild 3, etc.
+    let imageNumber;
+    if (islandTitle === "Gemüseinsel") {
+      imageNumber = completed; // 1 -> 1, 2 -> 2, etc.
+    } else if (islandTitle === "Getreideinsel") {
+      imageNumber = completed + 1; // 1 -> 2, 2 -> 3, etc.
+    } else {
+      // Für andere Inseln: verwende das Standard-Bild
+      return island.image;
+    }
+    
+    // Pfad: /islands/Fortschritt Gemüse/gemuese_1.png oder /islands/Fortschritt Getreide/getreide_2.png
+    return `/islands/Fortschritt ${normalizedTitle}/${imagePrefix}_${imageNumber}.png`;
+  }
 </script>
 
 <main style="background: linear-gradient(180deg, {island.bg} 0%, {island.bg}dd 100%);">
@@ -68,7 +99,7 @@
     </button>
 
     <div class="island-image-wrapper">
-      <img src={island.image} alt={island.title} />
+      <img src={displayImage} alt={island.title} />
     </div>
 
     <button class="arrow right" on:click={onNext} style="color: {island.color};" aria-label="Nächste Insel">
@@ -107,7 +138,7 @@
 
   header h1 {
     margin: 0 0 1.5rem 0;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Quicksand', 'Poppins', sans-serif;
     font-size: 36px;
     font-weight: 700;
     letter-spacing: 0.01em;
@@ -205,7 +236,7 @@
     border: none;
     border-radius: 16px;
     color: white;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Quicksand', 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;

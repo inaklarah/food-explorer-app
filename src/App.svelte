@@ -9,6 +9,7 @@
   import FavoritesList from "./lib/components/FavoritesList.svelte";
   import HomeOverview from "./lib/components/HomeOverview.svelte";
   import MenuBar from "./lib/components/MenuBar.svelte";
+  import CharacterAvatar from "./lib/components/CharacterAvatar.svelte";
   import CharacterChat from "./lib/components/CharacterChat.svelte";
 
   // Store
@@ -151,6 +152,7 @@
     on:navigate={handleNavigation}
     on:openchat={handleOpenChat}
   />
+  <CharacterAvatar characterName={$characterName} />
   <CharacterChat />
 
 {:else if view === "islands"}
@@ -165,6 +167,7 @@
     on:navigate={handleNavigation}
     on:openchat={handleOpenChat}
   />
+  <CharacterAvatar characterName={$characterName} />
   <CharacterChat />
 
 {:else if view === "detail"}
@@ -179,6 +182,7 @@
     on:navigate={handleNavigation}
     on:openchat={handleOpenChat}
   />
+  <CharacterAvatar characterName={$characterName} />
   <CharacterChat />
 
 {:else if view === "favorites"}
@@ -192,5 +196,6 @@
     on:navigate={handleNavigation}
     on:openchat={handleOpenChat}
   />
+  <CharacterAvatar characterName={$characterName} />
   <CharacterChat />
 {/if}
