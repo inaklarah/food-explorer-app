@@ -32,10 +32,10 @@ Dieses Projekt verfolgt bewusst einen **anderen Ansatz**:
 Sechs Inseln repräsentieren verschiedene Lebensmittelgruppen (Obst, Gemüse, Getreide, Milchprodukte, Fleisch/Fisch, Getränke). Kinder können frei zwischen den Inseln wechseln und diese in eigenem Tempo erkunden.
 
 **Aufgaben ohne Bewertung**  
-Jede Insel enthält Aufgaben, die durch das Ausprobieren von Lebensmitteln abgeschlossen werden. Es gibt keine Punktesysteme oder Erfolgsmetriken – nur das Abhaken zählt.
+Jede Insel enthält Aufgaben, die durch das Ausprobieren von Lebensmitteln abgeschlossen werden. Es gibt keine Punktesysteme oder Erfolgsmetriken, nur das Abhaken zählt.
 
 **Visueller Fortschritt**  
-Inseln entwickeln sich farblich weiter, je mehr Aufgaben erledigt wurden. Aus anfänglich grauen Inseln werden lebendige, bunte Welten – ohne Zahlen oder Prozentangaben.
+Inseln entwickeln sich weiter, je mehr Aufgaben erledigt wurden. Aus anfänglich unbewachsenen Inseln werden lebendige, bunte Welten.
 
 **Lebensmittel-Eingabe**  
 Ausprobierte Lebensmittel können eingetragen und gespeichert werden. Diese Eingaben sind direkt mit der jeweiligen Insel verknüpft.
@@ -50,10 +50,7 @@ Lebensmittel, die gut ankommen, können als Favoriten markiert werden. Diese wer
 Aus den gesammelten Favoriten lässt sich ein individuelles Rezept erstellen, das auf den persönlichen Vorlieben basiert.
 
 **Tiger-Charakter als Begleiter**  
-Ein animierter Tiger führt durch die App, gibt Unterstützung und bietet eine Chat-Funktion für Fragen und Interaktion.
-
-**Onboarding-Prozess**  
-Beim ersten Start erfolgt eine Einführung mit Namenseingabe und Charakterauswahl.
+Ein Tiger Charakter führt durch die App, gibt Unterstützung und bietet eine Chat-Funktion für Fragen und Interaktion.
 
 **Persistente Datenspeicherung**  
 Alle Fortschritte, Favoriten und erledigte Aufgaben werden lokal gespeichert und bleiben auch nach App-Neustart erhalten.
