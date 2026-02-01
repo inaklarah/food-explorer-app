@@ -3,7 +3,6 @@
   import { islands } from "./lib/data/islands";
 
   // Komponenten
-  import Onboarding from "./lib/components/Onboarding.svelte";
   import IslandView from "./lib/components/IslandView.svelte";
   import IslandDetail from "./lib/components/IslandDetail.svelte";
   import FavoritesList from "./lib/components/FavoritesList.svelte";
@@ -13,20 +12,21 @@
   import CharacterChat from "./lib/components/CharacterChat.svelte";
 
   // Store
-  import { characterName } from "./lib/stores/characterStore.js";
+  import { characterName, getTigerComment, showPassiveComment } from "./lib/stores/characterStore.js";
+  import { onMount } from 'svelte';
 
   // State
   let current = 0;
-  let view = "onboarding"; 
+  let view = "home"; 
   let resetToken = 0;
 
-  // Prüfe ob Onboarding bereits durchlaufen
-  if (typeof window !== 'undefined') {
-    const savedName = localStorage.getItem('characterName');
-    if (savedName && savedName !== '""') {
-      view = "home"; // Überspringe Onboarding
+  // Tiger-Begrüßung beim App-Start
+  onMount(() => {
+    const comment = getTigerComment('appStart');
+    if (comment) {
+      showPassiveComment(comment);
     }
-  }
+  });
 
   // Favorites-System mit localStorage
   let favorites = [];
@@ -83,10 +83,6 @@
   }
 
   // App-Flows
-  function finishOnboarding() {
-    view = "home";
-  }
-
   function openIsland() {
     view = "detail";
   }
@@ -157,10 +153,7 @@
                    (view === 'start' ? 'islands' : view));
 </script>
 
-{#if view === "onboarding"}
-  <Onboarding onComplete={finishOnboarding} />
-
-{:else if view === "home"}
+{#if view === "home"}
   <HomeOverview 
     {islands}
     {favorites}

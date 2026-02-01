@@ -14,7 +14,7 @@ function loadFromStorage(key, defaultValue) {
 }
 
 // Character Name
-export const characterName = writable(loadFromStorage('characterName', ''));
+export const characterName = writable('Timo');
 
 // Aktuelle Aufgabe (z.B. welche Insel)
 export const currentTask = writable(loadFromStorage('currentTask', null));
@@ -27,6 +27,30 @@ export const isChatOpen = writable(false);
 
 // Passive Kommentare (Sprechblasen)
 export const passiveComment = writable(null);
+
+// Tiger-Kommentare für verschiedene Events
+export const tigerComments = {
+  appStart: [
+    'Willkommen zurück! Bereit für neue Abenteuer?',
+    'Schön, dich wiederzusehen! Welche Insel erkunden wir heute?',
+    'Hallo! Ich bin Timo, dein Entdecker-Tiger.'
+  ],
+  islandSwitch: [
+    'Diese Insel sieht spannend aus!',
+    'Mal sehen, was wir hier entdecken können.',
+    'Jede Insel hat ihre eigenen Leckereien!'
+  ]
+};
+
+/**
+ * Gibt einen zufälligen Tiger-Kommentar für einen Event-Typ zurück
+ * @param {string} type - "appStart" oder "islandSwitch"
+ */
+export function getTigerComment(type) {
+  const arr = tigerComments[type];
+  if (!arr || arr.length === 0) return '';
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
 // Speichere Änderungen automatisch in localStorage
 characterName.subscribe(value => {

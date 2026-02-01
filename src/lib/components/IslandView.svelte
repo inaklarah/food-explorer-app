@@ -6,7 +6,10 @@
 
   // Fortschritt reaktiv aus localStorage holen
   import { onMount, onDestroy } from 'svelte';
+  import { getTigerComment, showPassiveComment } from '../stores/characterStore.js';
+  
   let completedCount = 0;
+  let previousIslandTitle = null;
 
   function updateCompletedCount() {
     if (typeof window !== 'undefined') {
@@ -18,7 +21,17 @@
   }
 
   // Reaktiv auf Inselwechsel
-  $: island, updateCompletedCount();
+  $: if (island) {
+    if (previousIslandTitle !== null && previousIslandTitle !== island.title) {
+      // Inselwechsel erkannt - zeige Tiger-Kommentar
+      const comment = getTigerComment('islandSwitch');
+      if (comment) {
+        showPassiveComment(comment);
+      }
+    }
+    previousIslandTitle = island.title;
+    updateCompletedCount();
+  }
 
   // Reaktiv auf storage-Events (z.B. wenn andere Komponenten Fortschritt speichern)
   function handleStorage(e) {

@@ -83,8 +83,8 @@
 
 <div class="home-container">
   <header class="home-header">
-    <h1>Deine Entdeckungswelt</h1>
-    <p class="subtitle">Besuche alle Inseln und sammle tolle Erlebnisse</p>
+    <h1>Entdecke Essen mit Timo!</h1>
+    <p class="subtitle">Spring mit Timo von Insel zu Insel & entdecke neue Orte.</p>
   </header>
   
   <div class="stats-card">
