@@ -42,34 +42,80 @@
   $: stars = getStars(completedCount, island.tasks.length);
   
   // Berechne das dynamische Bild basierend auf Fortschritt
-  $: displayImage = getDisplayImage(island.title, completedCount, island.tasks.length);
-  
-  function getDisplayImage(islandTitle, completed, total) {
+  $: displayImage = getDisplayImage(
+    island.title,
+    completedCount,
+    island.tasks.length,
+    island.image
+  );
+
+  // Pro Insel definieren, wo die Fortschrittsbilder liegen und wie sie heißen
+  // Dadurch bleibt die Logik leicht erweiterbar.
+  const progressConfigs = {
+    Proteininsel: {
+      folder: 'Fortschritt Fleisch',
+      prefix: 'fleisch',
+      usesBaseStage1: false,
+      hasCompleteImage: false
+    },
+    Gemüseinsel: {
+      folder: 'Fortschritt Gemüse',
+      prefix: 'gemuese',
+      usesBaseStage1: false,
+      hasCompleteImage: true
+    },
+    Getreideinsel: {
+      folder: 'Fortschritt Getreide',
+      prefix: 'getreide',
+      usesBaseStage1: true,
+      hasCompleteImage: false
+    },
+    Getränkeinsel: {
+      folder: 'Fortschritt Getränke',
+      prefix: 'getraenke',
+      usesBaseStage1: false,
+      hasCompleteImage: false
+    },
+    Milchprodukteinsel: {
+      folder: 'Fortschritt Milch',
+      prefix: 'milch',
+      usesBaseStage1: false,
+      hasCompleteImage: true
+    },
+    Obstinsel: {
+      folder: 'Fortschritt Obst',
+      prefix: 'obst',
+      usesBaseStage1: false,
+      hasCompleteImage: false
+    }
+  };
+
+  function getDisplayImage(islandTitle, completed, total, defaultImage) {
+    const config = progressConfigs[islandTitle];
+    if (!config) {
+      return defaultImage;
+    }
+
+    // Ordnername für URLs sicher kodieren (Umlaute/Leerzeichen)
+    const encodedFolder = encodeURIComponent(config.folder);
+
     const isComplete = completed >= total;
-    
-    // Für abgeschlossene Inseln: fertig-Bild (nur für Gemüse verfügbar)
-    if (isComplete && islandTitle === "Gemüseinsel") {
-      return `/islands/Fortschritt Gemüse/gemuese_fertig.png`;
+
+    // Optionales fertiges Bild am Ende
+    if (isComplete && config.hasCompleteImage) {
+      return `/islands/${encodedFolder}/${config.prefix}_fertig.png`;
     }
-    
-    // Normalisiere den Inseltitel (z.B. "Getreideinsel" -> "Getreide", "Gemüseinsel" -> "Gemüse")
-    const normalizedTitle = islandTitle.replace(/insel/i, '').trim();
-    const imagePrefix = islandTitle.toLowerCase().replace(/insel/i, '').trim();
-    
-    // Für Gemüse: 1 abgeschlossene = Bild 1, 2 abgeschlossene = Bild 2, etc.
-    // Für Getreide: 1 abgeschlossene = Bild 2, 2 abgeschlossene = Bild 3, etc.
-    let imageNumber;
-    if (islandTitle === "Gemüseinsel") {
-      imageNumber = completed; // 1 -> 1, 2 -> 2, etc.
-    } else if (islandTitle === "Getreideinsel") {
-      imageNumber = completed + 1; // 1 -> 2, 2 -> 3, etc.
-    } else {
-      // Für andere Inseln: verwende das Standard-Bild
-      return island.image;
+
+    // Stufe 1 anzeigen, solange Aufgabe 1 nicht abgeschlossen ist
+    // Stufe 2 ab Abschluss von Aufgabe 1, usw.
+    const stageNumber = Math.min(completed + 1, total);
+
+    // Manche Inseln nutzen für Stufe 1 das Basisbild (z. B. Getreide)
+    if (config.usesBaseStage1 && stageNumber === 1) {
+      return defaultImage;
     }
-    
-    // Pfad: /islands/Fortschritt Gemüse/gemuese_1.png oder /islands/Fortschritt Getreide/getreide_2.png
-    return `/islands/Fortschritt ${normalizedTitle}/${imagePrefix}_${imageNumber}.png`;
+
+    return `/islands/${encodedFolder}/${config.prefix}_${stageNumber}.png`;
   }
 </script>
 

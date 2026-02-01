@@ -3,6 +3,8 @@
   
   export let islands = [];
   export let favorites = [];
+  export let resetToken = 0;
+  export let onResetProgress;
   
   const dispatch = createEventDispatcher();
   
@@ -42,6 +44,8 @@
   });
 
   $: islands, updateCompletedMap();
+  // Externes Reset-Signal: Fortschritt neu berechnen
+  $: resetToken, updateCompletedMap();
 
   // Berechne Fortschritt für jede Insel
   function getIslandProgress(island) {
@@ -61,6 +65,7 @@
     0
   );
   $: remainingTasks = Math.max(totalTasks - completedTasksTotal, 0);
+  $: completedTasksDisplay = Math.min(completedTasksTotal, totalTasks);
 
   // Bilde Inseltitel auf Tiger-Bilder ab
   function getTigerImage(islandTitle) {
@@ -90,8 +95,8 @@
           <circle cx="12" cy="10" r="3"/>
         </svg>
       </div>
-      <span class="stat-value">{remainingTasks}</span>
-      <span class="stat-label">Aufgaben offen</span>
+      <span class="stat-value">{completedTasksDisplay}</span>
+      <span class="stat-label">Aufgaben geschafft</span>
     </div>
     <div class="stat">
       <div class="stat-icon">
@@ -103,6 +108,7 @@
       <span class="stat-label">Favoriten</span>
     </div>
   </div>
+
   
   <div class="islands-grid">
     {#each islands as island, index}
@@ -140,6 +146,18 @@
         {/if}
       </button>
     {/each}
+  </div>
+
+  <!-- Fortschritt zurücksetzen: sicherer Neustart -->
+  <div class="reset-section">
+    <button
+      type="button"
+      class="reset-button"
+      on:click={() => onResetProgress && onResetProgress()}
+      aria-label="Fortschritt zurücksetzen"
+    >
+      Fortschritt zurücksetzen
+    </button>
   </div>
 </div>
 
@@ -185,6 +203,38 @@
     margin-bottom: clamp(1.5rem, 4vw, 2rem);
     box-shadow: 0 4px 16px rgba(139, 111, 71, 0.12);
   }
+
+  .reset-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: clamp(1.25rem, 3vw, 1.75rem) 0 0;
+    padding-bottom: clamp(0.5rem, 2vw, 1rem);
+  }
+
+  .reset-button {
+    border: none;
+    background: transparent;
+    color: rgba(125, 90, 61, 0.7);
+    font-family: 'Inria Sans', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    box-shadow: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .reset-button:focus,
+  .reset-button:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+
 
   .stat {
     display: flex;

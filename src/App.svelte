@@ -18,6 +18,7 @@
   // State
   let current = 0;
   let view = "onboarding"; 
+  let resetToken = 0;
 
   // Prüfe ob Onboarding bereits durchlaufen
   if (typeof window !== 'undefined') {
@@ -105,6 +106,28 @@
   function closeFavorites() {
     view = "home";
   }
+
+  // Fortschritt komplett zurücksetzen (alle Insel-Aufgaben)
+  function resetProgress() {
+    if (typeof window === 'undefined') return;
+
+    const confirmed = window.confirm(
+      'Möchtest du den Fortschritt wirklich zurücksetzen?\nAlle Aufgaben werden wieder auf Anfang gesetzt.'
+    );
+
+    if (!confirmed) return;
+
+    // Alle Insel-Fortschritte aus localStorage entfernen
+    for (const island of islands) {
+      localStorage.removeItem(`island_${island.title}_completed`);
+    }
+
+    // Erste Insel wieder als Startpunkt setzen
+    current = 0;
+
+    // Token erhöhen, damit abhängige Komponenten neu berechnen
+    resetToken += 1;
+  }
   
   // Navigation über MenuBar
   function handleNavigation(event) {
@@ -145,6 +168,8 @@
   <HomeOverview 
     {islands}
     {favorites}
+    {resetToken}
+    onResetProgress={resetProgress}
     on:selectisland={selectIsland}
   />
   <MenuBar 

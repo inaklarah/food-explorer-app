@@ -225,6 +225,7 @@
   .input-wrapper {
     display: flex;
     gap: clamp(0.5rem, 1.5vw, 0.75rem);
+    align-items: center;
   }
 
   input {
@@ -253,19 +254,27 @@
   .submit-btn {
     width: clamp(3rem, 10vw, 3.5rem);
     height: clamp(3rem, 10vw, 3.5rem);
+    inline-size: clamp(3rem, 10vw, 3.5rem);
+    block-size: clamp(3rem, 10vw, 3.5rem);
+    max-inline-size: clamp(3rem, 10vw, 3.5rem);
+    max-block-size: clamp(3rem, 10vw, 3.5rem);
     min-width: 3rem;
     min-height: 3rem;
     border: none;
-    border-radius: 50%;
+    border-radius: 999px;
     color: white;
     font-size: clamp(1.25rem, 3vw, 1.5rem);
     font-weight: 700;
+    line-height: 1;
+    padding: 0;
+    aspect-ratio: 1 / 1;
     cursor: pointer;
     transition: all 0.15s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    flex: 0 0 auto;
+    box-sizing: border-box;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
