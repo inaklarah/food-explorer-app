@@ -61,6 +61,19 @@
     0
   );
   $: remainingTasks = Math.max(totalTasks - completedTasksTotal, 0);
+
+  // Bilde Inseltitel auf Tiger-Bilder ab
+  function getTigerImage(islandTitle) {
+    const mapping = {
+      'Proteininsel': '/explorer/Insel%20Tiger/tiger_fleisch.png',
+      'Gemüseinsel': '/explorer/Insel%20Tiger/tiger_gemuese.png',
+      'Getreideinsel': '/explorer/Insel%20Tiger/tiger_getreide.png',
+      'Getränkeinsel': '/explorer/Insel%20Tiger/tiger_getraenke.png',
+      'Milchprodukteinsel': '/explorer/Insel%20Tiger/tiger_milch.png',
+      'Obstinsel': '/explorer/Insel%20Tiger/tiger_obst.png'
+    };
+    return mapping[islandTitle] || '/explorer/Insel%20Tiger/tiger.png';
+  }
 </script>
 
 <div class="home-container">
@@ -97,29 +110,25 @@
       {@const stars = getStars(progress.completed, progress.total)}
       <button 
         class="island-card"
-        style="background: {island.bg};"
+        style="background-image: url('{getTigerImage(island.title)}'); border-color: {island.bg};"
         on:click={() => selectIsland(index)}
       >
-        <div class="island-image-container">
-          {#if island.image}
-            <img src={island.image} alt={island.title} class="island-image" />
-          {/if}
-        </div>
-        
-        <div class="island-content">
-          <h3 style="color: {island.color};">{island.title}</h3>
-          
-          <div class="stars-container">
-            {#each stars as filled}
-              <span class="star" class:filled style="color: {island.color};">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
-                  <line x1="4" y1="22" x2="4" y2="15"/>
-                </svg>
-              </span>
-            {/each}
-          </div>
+        <div class="island-overlay">
+          <div class="island-content" style="background: {island.bg};">
+            <h3 style="color: {island.color};">{island.title}</h3>
+            
+            <div class="stars-container">
+              {#each stars as filled}
+                <span class="star" class:filled style="color: {island.color};">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill={filled ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+                    <line x1="4" y1="22" x2="4" y2="15"/>
+                  </svg>
+                </span>
+              {/each}
+            </div>
 
+          </div>
         </div>
         
         {#if progress.completed === progress.total}
@@ -221,19 +230,23 @@
 
   .island-card {
     position: relative;
-    border: none;
+    border: 4px solid;
     border-radius: clamp(1.25rem, 3vw, 1.5rem);
-    padding: clamp(0.75rem, 3vw, 1.25rem);
+    padding: 0;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(139, 111, 71, 0.15);
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0;
     min-height: clamp(200px, 50vw, 220px);
     text-align: left;
     touch-action: manipulation;
     min-width: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
   }
 
   .island-card:hover {
@@ -251,20 +264,36 @@
     }
   }
 
+  .island-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+  }
+
   .island-image-container {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 90px;
+    min-height: 140px;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
+    overflow: hidden;
+    padding: 2px;
   }
 
   .island-image {
-    max-width: clamp(70px, 15vw, 90px);
-    max-height: clamp(70px, 15vw, 90px);
+    max-width: clamp(120px, 28vw, 160px);
+    max-height: clamp(120px, 28vw, 160px);
     object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(139, 111, 71, 0.15));
+    filter: drop-shadow(0 2px 4px rgba(139, 111, 71, 0.1));
     transition: transform 0.3s ease;
+    border-radius: clamp(0.5rem, 1.5vw, 0.75rem);
   }
 
   .island-card:hover .island-image {
@@ -274,8 +303,10 @@
   .island-content {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    flex: 1;
+    gap: 0.4rem;
+    z-index: 2;
+    padding: clamp(0.6rem, 2.5vw, 1rem);
+    border-radius: clamp(0.75rem, 2.5vw, 1rem) clamp(0.75rem, 2.5vw, 1rem) 0 0;
   }
 
   .island-content h3 {
