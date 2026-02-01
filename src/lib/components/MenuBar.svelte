@@ -79,22 +79,30 @@
     background: none;
     border: none;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     color: #A08875;
-    border-radius: clamp(0.75rem, 2vw, 1rem);
+    border-radius: 999px;
     min-height: 3rem;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
   }
 
   .menu-item:hover {
     background: #FFF4E6;
-    transform: translateY(-2px);
   }
 
   .menu-item:active {
-    transform: translateY(0);
+    background: #FFF4E6;
+  }
+
+  .menu-item:focus,
+  .menu-item:focus-visible {
+    outline: none;
+    box-shadow: none;
   }
 
   .menu-item.active {
@@ -102,25 +110,10 @@
     background: #FFF4E6;
   }
 
-  .menu-item.active .icon {
-    transform: scale(1.15);
-    animation: bounce 0.5s ease;
-  }
-
-  @keyframes bounce {
-    0%, 100% {
-      transform: scale(1.15) translateY(0);
-    }
-    50% {
-      transform: scale(1.15) translateY(-4px);
-    }
-  }
-
   .icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     width: clamp(1.25rem, 6vw, 1.5rem);
     height: clamp(1.25rem, 6vw, 1.5rem);
   }

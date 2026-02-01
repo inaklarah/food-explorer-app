@@ -79,9 +79,9 @@
   let selectedMealType = "mittag"; // frühstück, mittag, abendessen
 
   const mealTypes = [
-    { value: "frühstück", label: "Frühstück", icon: "☀️" },
-    { value: "mittag", label: "Mittagessen", icon: "🌤️" },
-    { value: "abendessen", label: "Abendessen", icon: "🌙" }
+    { value: "frühstück", label: "Frühstück" },
+    { value: "mittag", label: "Mittagessen" },
+    { value: "abendessen", label: "Abendessen" }
   ];
 
   // Tiger-Kommentare für Rezepte
@@ -129,6 +129,20 @@
       loadingAllRecipe = false;
     }
   }
+
+  // Bilde Inseltitel auf Tiger-Bilder ab (wie in HomeOverview)
+  function getTigerImage(islandTitle) {
+    const mapping = {
+      'Proteininsel': '/explorer/Insel%20Tiger/tiger_fleisch.png',
+      'Gemüseinsel': '/explorer/Insel%20Tiger/tiger_gemuese.png',
+      'Getreideinsel': '/explorer/Insel%20Tiger/tiger_getreide.png',
+      'Getränkeinsel': '/explorer/Insel%20Tiger/tiger_getraenke.png',
+      'Milchprodukteinsel': '/explorer/Insel%20Tiger/tiger_milch.png',
+      'Obstinsel': '/explorer/Insel%20Tiger/tiger_obst.png'
+    };
+    return mapping[islandTitle] || '/explorer/Insel%20Tiger/tiger.png';
+  }
+
   export let favorites = [];
   export let removeFavorite;
   export let onBack;
@@ -172,6 +186,9 @@
         <p>Wenn dir etwas besonders gut schmeckt,<br>speichere es als Favorit!</p>
       </div>
     {:else}
+      <!-- Instruction Text -->
+      <p class="favorites-instruction">Wähle Zutaten aus, um ein Rezept zu erstellen</p>
+
       <!-- Nach Inseln gruppierte Favoriten -->
       <div class="islands-container">
         {#each groupedFavorites as group, index (group.island.title)}
@@ -183,7 +200,7 @@
             <div class="island-header" style="background: {group.island.bg};">
               <div class="island-header-content">
                 <div class="island-icon" style="border-color: {group.island.color};">
-                  <img src={group.island.image} alt={group.island.title} />
+                  <img src={getTigerImage(group.island.title)} alt={group.island.title} />
                 </div>
                 <div class="island-info">
                   <h2 style="color: {group.island.color};">{group.island.title}</h2>
@@ -234,7 +251,7 @@
                     title="Aus Favoriten löschen"
                     aria-label="Entfernen"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M18 6L6 18M6 6l12 12"/>
                     </svg>
                   </button>
@@ -258,7 +275,6 @@
                 class:active={selectedMealType === mealType.value}
                 on:click={() => selectedMealType = mealType.value}
               >
-                <span class="meal-icon">{mealType.icon}</span>
                 <span class="meal-label">{mealType.label}</span>
               </button>
             {/each}
@@ -272,17 +288,9 @@
           disabled={loadingAllRecipe || selectedFavorites.size === 0}
         >
           {#if loadingAllRecipe}
-            <span class="spinner">⏳</span> Rezept wird erstellt...
-          {:else if selectedFavorites.size === 0}
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
-            Wähle Zutaten für dein Rezept aus
+            Rezept wird erstellt...
           {:else}
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
-            Rezept aus {selectedFavorites.size} {selectedFavorites.size === 1 ? 'Zutat' : 'Zutaten'} erstellen
+            Kreiere ein Rezept
           {/if}
         </button>
 
@@ -411,6 +419,19 @@
     font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
     line-height: 1.6;
     font-weight: 500;
+  }
+
+  /* Favorites Instruction */
+  .favorites-instruction {
+    margin: 0 0 clamp(1.25rem, 3vw, 1.5rem) 0;
+    text-align: center;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.125rem);
+    font-weight: 600;
+    color: #7D5A3D;
+    padding: clamp(0.75rem, 2vw, 1rem);
+    background: #FFF9F0;
+    border-radius: clamp(0.75rem, 2vw, 1rem);
   }
 
   /* Islands Container */
@@ -597,22 +618,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
     flex-shrink: 0;
-    padding: clamp(0.25rem, 1vw, 0.5rem);
-    min-width: 2.5rem;
-    min-height: 2.5rem;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
 
   .remove-btn:hover {
-    transform: scale(1.2);
     color: #B8472A;
   }
 
   .remove-btn:active {
-    transform: scale(0.95);
+    color: #B8472A;
+  }
+
+  .remove-btn:focus,
+  .remove-btn:focus-visible {
+    outline: none;
+    box-shadow: none;
   }
 
   /* Recipe Section */
@@ -645,41 +673,44 @@
   .meal-type-btn {
     flex: 1;
     min-width: clamp(100px, 25vw, 120px);
-    padding: clamp(0.625rem, 1.5vw, 0.875rem) clamp(0.75rem, 1.5vw, 1rem);
-    border: 2px solid #FFE8D6;
-    border-radius: clamp(0.625rem, 1.5vw, 0.75rem);
+    padding: clamp(0.75rem, 2vw, 1rem);
+    border: 2px solid #E7C6B1;
+    border-radius: 999px;
     background: white;
+    color: #7D5A3D;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: clamp(0.25rem, 1vw, 0.375rem);
-    transition: all 0.2s ease;
+    justify-content: center;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
-    min-height: 2.75rem;
+    min-height: 3rem;
+    box-shadow: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
   }
 
   .meal-type-btn:hover {
     background: #FFF9F0;
-    border-color: #FF9B71;
-    transform: translateY(-2px);
+    border-color: #D2A784;
   }
 
   .meal-type-btn.active {
-    background: linear-gradient(135deg, #FF9B71 0%, #FFA07A 100%);
+    background: #FF9B71;
     border-color: #FF9B71;
     color: white;
   }
 
-  .meal-icon {
-    font-size: clamp(1.5rem, 4vw, 1.75rem);
-    line-height: 1;
+  .meal-type-btn:focus,
+  .meal-type-btn:focus-visible {
+    outline: none;
+    box-shadow: none;
   }
 
   .meal-label {
     font-family: 'Inria Sans', sans-serif;
-    font-size: clamp(0.8125rem, 2vw, 0.875rem);
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
     font-weight: 600;
   }
 
@@ -701,55 +732,46 @@
 
   .recipe-generator-btn {
     width: 100%;
-    padding: clamp(1rem, 2vw, 1.125rem) clamp(1.5rem, 3vw, 2rem);
-    background: linear-gradient(135deg, #FF9B71 0%, #FFA07A 100%);
+    padding: clamp(1.125rem, 2.5vw, 1.25rem) clamp(1.5rem, 3vw, 2rem);
+    background: #FF9B71;
     color: white;
     border: none;
-    border-radius: clamp(0.75rem, 2vw, 1rem);
+    border-radius: 999px;
     font-family: 'Inria Sans', sans-serif;
-    font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
-    font-weight: 600;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);
+    box-shadow: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(0.5rem, 1.5vw, 0.75rem);
-    letter-spacing: 0.02em;
-    min-height: 3rem;
+    letter-spacing: 0.01em;
+    min-height: 3.5rem;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    margin-top: clamp(1rem, 2vw, 1.5rem);
   }
 
   .recipe-generator-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(255, 133, 85, 0.35);
-    background: linear-gradient(135deg, #FFA07A 0%, #FF9B71 100%);
+    background: #FFA07A;
   }
 
   .recipe-generator-btn:active:not(:disabled) {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(255, 133, 85, 0.2);
+    background: #FFA07A;
+  }
+
+  .recipe-generator-btn:focus,
+  .recipe-generator-btn:focus-visible {
+    outline: none;
+    box-shadow: none;
   }
 
   .recipe-generator-btn:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: not-allowed;
-  }
-
-  .spinner {
-    display: inline-block;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
   }
 
   .recipe-box {
