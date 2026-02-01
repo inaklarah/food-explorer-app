@@ -28,13 +28,35 @@ Dieses Projekt verfolgt bewusst einen **anderen Ansatz**:
 
 ## Features
 
-- **Inselbasierte Struktur** mit verschiedenen Lebensmittelgruppen
-- **Aufgaben pro Insel**, die ohne Bewertung abgeschlossen werden
-- **Visuelle Veränderung der Inseln**, sobald Aufgaben erledigt wurden
-- **Eingabe von ausprobierten Lebensmitteln**
-- **KI-generierte Informationen** zu Lebensmitteln
-- **Favoriten-Funktion**, um positive Erfahrungen festzuhalten und daraus ein Rezept zu generieren
-- **Charakter in Form eines Tigers** als Begleiter durch die App mit Motivation und Chat Funktion
+**Inselbasierte Navigation**  
+Sechs Inseln repräsentieren verschiedene Lebensmittelgruppen (Obst, Gemüse, Getreide, Milchprodukte, Fleisch/Fisch, Getränke). Kinder können frei zwischen den Inseln wechseln und diese in eigenem Tempo erkunden.
+
+**Aufgaben ohne Bewertung**  
+Jede Insel enthält Aufgaben, die durch das Ausprobieren von Lebensmitteln abgeschlossen werden. Es gibt keine Punktesysteme oder Erfolgsmetriken – nur das Abhaken zählt.
+
+**Visueller Fortschritt**  
+Inseln entwickeln sich farblich weiter, je mehr Aufgaben erledigt wurden. Aus anfänglich grauen Inseln werden lebendige, bunte Welten – ohne Zahlen oder Prozentangaben.
+
+**Lebensmittel-Eingabe**  
+Ausprobierte Lebensmittel können eingetragen und gespeichert werden. Diese Eingaben sind direkt mit der jeweiligen Insel verknüpft.
+
+**KI-gestützte Information**  
+Eine integrierte KI liefert kindgerechte Informationen zu eingegebenen Lebensmitteln. Die Antworten sind verständlich formuliert und auf das jeweilige Lebensmittel zugeschnitten.
+
+**Favoriten-Funktion**  
+Lebensmittel, die gut ankommen, können als Favoriten markiert werden. Diese werden in einer separaten Liste gesammelt.
+
+**Rezeptgenerator**  
+Aus den gesammelten Favoriten lässt sich ein individuelles Rezept erstellen, das auf den persönlichen Vorlieben basiert.
+
+**Tiger-Charakter als Begleiter**  
+Ein animierter Tiger führt durch die App, gibt Unterstützung und bietet eine Chat-Funktion für Fragen und Interaktion.
+
+**Onboarding-Prozess**  
+Beim ersten Start erfolgt eine Einführung mit Namenseingabe und Charakterauswahl.
+
+**Persistente Datenspeicherung**  
+Alle Fortschritte, Favoriten und erledigte Aufgaben werden lokal gespeichert und bleiben auch nach App-Neustart erhalten.
 
 ---
 
