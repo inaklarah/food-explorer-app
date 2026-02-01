@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, onDestroy, onMount } from 'svelte';
   
   export let islands = [];
   export let favorites = [];
@@ -10,11 +10,43 @@
     dispatch('selectisland', { index });
   }
   
+  let completedMap = {};
+
+  function updateCompletedMap() {
+    if (typeof window === 'undefined') {
+      completedMap = {};
+      return;
+    }
+
+    const next = {};
+    for (const island of islands) {
+      const saved = localStorage.getItem(`island_${island.title}_completed`);
+      next[island.title] = saved ? JSON.parse(saved).length : 0;
+    }
+    completedMap = next;
+  }
+
+  function handleStorage(event) {
+    if (event.key && event.key.startsWith('island_') && event.key.endsWith('_completed')) {
+      updateCompletedMap();
+    }
+  }
+
+  onMount(() => {
+    updateCompletedMap();
+    window.addEventListener('storage', handleStorage);
+  });
+
+  onDestroy(() => {
+    window.removeEventListener('storage', handleStorage);
+  });
+
+  $: islands, updateCompletedMap();
+
   // Berechne Fortschritt für jede Insel
   function getIslandProgress(island) {
-    const islandFavorites = favorites.filter(f => f.islandTitle === island.title);
     const total = island.tasks.length;
-    const completed = Math.min(islandFavorites.length, total);
+    const completed = Math.min(completedMap[island.title] ?? 0, total);
     return { completed, total };
   }
   
@@ -22,6 +54,13 @@
   function getStars(completed, total) {
     return Array.from({ length: total }, (_, i) => i < completed);
   }
+
+  $: totalTasks = islands.reduce((sum, island) => sum + island.tasks.length, 0);
+  $: completedTasksTotal = islands.reduce(
+    (sum, island) => sum + Math.min(completedMap[island.title] ?? 0, island.tasks.length),
+    0
+  );
+  $: remainingTasks = Math.max(totalTasks - completedTasksTotal, 0);
 </script>
 
 <div class="home-container">
@@ -38,8 +77,8 @@
           <circle cx="12" cy="10" r="3"/>
         </svg>
       </div>
-      <span class="stat-value">{islands.length}</span>
-      <span class="stat-label">Inseln</span>
+      <span class="stat-value">{remainingTasks}</span>
+      <span class="stat-label">Aufgaben offen</span>
     </div>
     <div class="stat">
       <div class="stat-icon">
@@ -80,6 +119,7 @@
               </span>
             {/each}
           </div>
+
         </div>
         
         {#if progress.completed === progress.total}
@@ -254,6 +294,7 @@
     gap: clamp(0.125rem, 1vw, 0.25rem);
     flex-wrap: wrap;
   }
+
 
   .star {
     display: inline-flex;
