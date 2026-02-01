@@ -54,34 +54,36 @@
 </nav>
 
 <style>
+  /* ===== MENU BAR ===== */
   .menu-bar {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background: white;
+    background: var(--color-bg-card);
     display: flex;
     justify-content: space-around;
-    padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.25rem, 1vw, 0.5rem) clamp(0.375rem, 1vw, 0.5rem);
-    box-shadow: 0 -4px 20px rgba(139, 111, 71, 0.15);
-    z-index: 1000;
+    padding: var(--spacing-sm) var(--spacing-xs) var(--spacing-sm);
+    box-shadow: 0 -4px 20px var(--shadow-strong);
+    z-index: var(--zIndex-menuBar);
     border-top: none;
-    gap: clamp(0.25rem, 1vw, 0.5rem);
+    gap: var(--spacing-xs);
   }
 
+  /* ===== MENU ITEM ===== */
   .menu-item {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(0.25rem, 1vw, 0.375rem);
-    padding: clamp(0.5rem, 1.5vw, 0.625rem) clamp(0.5rem, 1.5vw, 0.75rem);
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-base);
     background: none;
     border: none;
     cursor: pointer;
     position: relative;
-    color: #A08875;
-    border-radius: 999px;
+    color: var(--color-secondary-light);
+    border-radius: var(--radius-full);
     min-height: 3rem;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
@@ -89,14 +91,15 @@
     outline: none;
     appearance: none;
     -webkit-appearance: none;
+    transition: var(--transition-base);
   }
 
   .menu-item:hover {
-    background: #FFF4E6;
+    background: var(--color-primary-soft);
   }
 
   .menu-item:active {
-    background: #FFF4E6;
+    background: var(--color-primary-soft);
   }
 
   .menu-item:focus,
@@ -106,10 +109,11 @@
   }
 
   .menu-item.active {
-    color: #FF9B71;
-    background: #FFF4E6;
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
   }
 
+  /* ===== ICON ===== */
   .icon {
     display: flex;
     align-items: center;
@@ -118,10 +122,11 @@
     height: clamp(1.25rem, 6vw, 1.5rem);
   }
 
+  /* ===== LABEL ===== */
   .label {
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(0.625rem, 2vw, 0.8rem);
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.01em;
     line-height: 1.1;
   }
@@ -131,14 +136,15 @@
     padding-bottom: clamp(4rem, 12vw, 5rem);
   }
 
+  /* ===== RESPONSIVE ===== */
   @media (min-width: 768px) {
     .menu-bar {
-      padding: clamp(0.5rem, 1vw, 0.75rem);
-      gap: clamp(1rem, 2vw, 1.5rem);
+      padding: var(--spacing-sm);
+      gap: var(--spacing-lg);
     }
 
     .menu-item {
-      padding: clamp(0.625rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
+      padding: var(--spacing-sm) var(--spacing-md);
     }
   }
 </style>

@@ -269,16 +269,16 @@ ${$characterName || 'Tiger'}:`;
 
   .header-text h2 {
     margin: 0;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1rem, 3vw, 1.25rem);
-    font-weight: 700;
+    font-weight: 500;
     color: #7D5A3D;
     line-height: 1.2;
   }
 
   .header-text p {
     margin: 0;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(0.75rem, 2vw, 0.8125rem);
     color: #A08875;
     font-weight: 500;
@@ -323,7 +323,7 @@ ${$characterName || 'Tiger'}:`;
   }
 
   .welcome-message p {
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.0625rem);
     color: #7D5A3D;
     margin: clamp(0.5rem, 1vw, 0.75rem) 0;
@@ -355,7 +355,7 @@ ${$characterName || 'Tiger'}:`;
     max-width: 75%;
     padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 2.5vw, 1.25rem);
     border-radius: clamp(1rem, 2vw, 1.125rem);
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(0.9375rem, 2vw, 0.9375rem);
     line-height: 1.5;
   }
@@ -375,7 +375,7 @@ ${$characterName || 'Tiger'}:`;
 
   .message-bubble p {
     margin: 0;
-    font-weight: 500;
+    font-weight: 400;
     word-break: break-word;
   }
 
@@ -429,7 +429,7 @@ ${$characterName || 'Tiger'}:`;
     padding: clamp(0.875rem, 2vw, 1rem) clamp(1rem, 2vw, 1.125rem);
     border: 3px solid #FFE8D6;
     border-radius: clamp(0.75rem, 2vw, 1rem);
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(0.9375rem, 2vw, 0.9375rem);
     background: white;
     color: #5A4A42;
@@ -456,9 +456,9 @@ ${$characterName || 'Tiger'}:`;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(0.875rem, 2vw, 1rem);
-    font-weight: 600;
+    font-weight: 400;
     gap: 0.5rem;
     transition: all 0.2s ease;
     box-shadow: 0 6px 0 #FFA07A99;

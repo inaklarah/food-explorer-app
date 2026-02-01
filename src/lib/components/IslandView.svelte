@@ -166,43 +166,44 @@
 </main>
 
 <style>
+  /* ===== MAIN CONTAINER ===== */
   main {
     min-height: 100vh;
-    padding: clamp(1.5rem, 5vw, 2rem) clamp(1rem, 3vw, 1.5rem);
-    padding-bottom: clamp(7.5rem, 20vw, 10rem);
+    padding: var(--spacing-xl) var(--spacing-md);
+    padding-bottom: var(--layout-padding-bottom);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
   }
 
+  /* ===== HEADER ===== */
   header {
     text-align: center;
-    margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: var(--spacing-lg);
     width: 100%;
   }
 
   header h1 {
-    margin: 0 0 clamp(0.75rem, 2vw, 1.5rem) 0;
-    font-family: 'Quicksand', 'Poppins', sans-serif;
+    margin: 0 0 var(--spacing-lg) 0;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1.75rem, 6vw, 2.25rem);
-    font-weight: 700;
-    letter-spacing: 0.01em;
+    font-weight: 500;
     line-height: 1.2;
   }
 
   .stars-progress {
     display: flex;
     justify-content: center;
-    gap: clamp(0.25rem, 1vw, 0.5rem);
-    margin-bottom: 0.75rem;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-base);
     flex-wrap: wrap;
   }
 
   .star {
     display: inline-flex;
     opacity: 0.25;
-    transition: all 0.2s ease;
+    transition: var(--transition-base);
     min-width: fit-content;
   }
 
@@ -213,11 +214,12 @@
 
   .progress-text {
     font-size: clamp(0.875rem, 2.5vw, 1rem);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
     opacity: 0.9;
   }
 
+  /* ===== ISLAND DISPLAY ===== */
   .island {
     position: relative;
     width: 100%;
@@ -225,8 +227,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(0.5rem, 2vw, 1rem);
-    margin: clamp(1rem, 3vw, 2rem) 0;
+    gap: var(--spacing-md);
+    margin: var(--spacing-xl) 0;
     flex: 1;
   }
 
@@ -245,7 +247,7 @@
     max-width: 100%;
     object-fit: contain;
     filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition-slow);
     animation: float 6s ease-in-out infinite;
   }
 
@@ -258,17 +260,18 @@
     }
   }
 
+  /* ===== NAVIGATION ARROWS ===== */
   .arrow {
     border: none;
     background: transparent;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: var(--transition-base);
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    padding: clamp(0.5rem, 2vw, 0.75rem);
+    padding: var(--spacing-sm);
     min-width: clamp(2.5rem, 8vw, 3rem);
     min-height: clamp(2.5rem, 8vw, 3rem);
     touch-action: manipulation;
@@ -283,20 +286,21 @@
     transform: scale(0.95);
   }
 
+  /* ===== CTA BUTTON ===== */
   .cta {
     width: 100%;
     max-width: clamp(280px, 90vw, 320px);
-    padding: clamp(1rem, 3vw, 1.125rem) clamp(1.5rem, 5vw, 2.25rem);
+    padding: var(--spacing-md) var(--spacing-xl);
     border: none;
-    border-radius: clamp(0.75rem, 2vw, 1rem);
+    border-radius: var(--radius-base);
     color: white;
-    font-family: 'Quicksand', 'Poppins', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1rem, 3vw, 1.125rem);
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
-    margin-top: clamp(1rem, 3vw, 1.5rem);
-    box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);
+    transition: var(--transition-base);
+    margin-top: var(--spacing-lg);
+    box-shadow: var(--shadow-button);
     letter-spacing: 0.02em;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
@@ -310,12 +314,13 @@
 
   .cta:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(255, 133, 85, 0.2);
+    box-shadow: var(--shadow-base);
   }
 
+  /* ===== RESPONSIVE ===== */
   @media (max-width: 480px) {
     main {
-      padding: 1rem 0.75rem;
+      padding: var(--spacing-md) var(--spacing-base);
       padding-bottom: 7.5rem;
     }
 
@@ -330,7 +335,7 @@
 
   @media (min-width: 768px) {
     main {
-      padding: 2rem;
+      padding: var(--spacing-2xl);
       padding-bottom: 5rem;
     }
 
@@ -339,7 +344,7 @@
     }
 
     .island {
-      gap: 2rem;
+      gap: var(--spacing-xl);
     }
   }
 </style>

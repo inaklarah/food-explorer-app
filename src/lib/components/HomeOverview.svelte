@@ -162,85 +162,54 @@
 </div>
 
 <style>
+  /* ===== CONTAINER ===== */
   .home-container {
-    padding: 1rem;
-    padding-bottom: clamp(6.25rem, 20vw, 8rem);
-    max-width: 100%;
-    margin: 0 auto;
-    background: linear-gradient(180deg, #FFF9F0 0%, #FFF4E6 100%);
     min-height: 100vh;
+    background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+    padding: var(--spacing-md);
+    padding-bottom: var(--layout-padding-bottom);
   }
 
+  /* ===== HEADER ===== */
   .home-header {
     text-align: center;
-    margin-bottom: max(1.5rem, 2vw);
-    margin-top: 0.75rem;
+    margin-bottom: var(--spacing-xl);
+    padding-top: var(--spacing-base);
   }
 
   .home-header h1 {
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1.75rem, 6vw, 2.5rem);
-    margin-bottom: 0.75rem;
-    color: #7D5A3D;
-    letter-spacing: 0.01em;
+    font-weight: 500;
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-base);
     line-height: 1.3;
   }
 
   .subtitle {
-    color: #A08875;
+    color: var(--color-secondary-light);
     font-size: clamp(0.95rem, 3.5vw, 1.1rem);
     font-weight: 500;
     line-height: 1.5;
   }
 
+  /* ===== STATS CARD ===== */
   .stats-card {
     display: flex;
     justify-content: space-around;
-    gap: 1rem;
-    background: white;
-    border-radius: clamp(1.5rem, 4vw, 1.75rem);
-    padding: clamp(1.25rem, 4vw, 1.75rem);
-    margin-bottom: clamp(1.5rem, 4vw, 2rem);
-    box-shadow: 0 4px 16px rgba(139, 111, 71, 0.12);
+    gap: var(--spacing-md);
+    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
   }
-
-  .reset-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    margin: clamp(1.25rem, 3vw, 1.75rem) 0 0;
-    padding-bottom: clamp(0.5rem, 2vw, 1rem);
-  }
-
-  .reset-button {
-    border: none;
-    background: transparent;
-    color: rgba(125, 90, 61, 0.7);
-    font-family: 'Inria Sans', sans-serif;
-    font-weight: 600;
-    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
-    padding: 0.25rem 0.5rem;
-    cursor: pointer;
-    box-shadow: none;
-    outline: none;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-
-  .reset-button:focus,
-  .reset-button:focus-visible {
-    outline: none;
-    box-shadow: none;
-  }
-
-
 
   .stat {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--spacing-sm);
     flex: 1;
     min-width: 0;
   }
@@ -249,59 +218,57 @@
     width: clamp(2.75rem, 8vw, 3rem);
     height: clamp(2.75rem, 8vw, 3rem);
     background: linear-gradient(135deg, #FFE8CC 0%, #FFD4A3 100%);
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FF9B71;
+    color: var(--color-primary);
     flex-shrink: 0;
   }
 
   .stat-value {
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1.5rem, 5vw, 2.25rem);
-    font-weight: 700;
-    color: #7D5A3D;
+    font-weight: 500;
+    color: var(--color-secondary);
   }
 
   .stat-label {
     font-size: clamp(0.75rem, 2.5vw, 0.95rem);
-    color: #A08875;
-    font-weight: 600;
+    color: var(--color-secondary-light);
+    font-weight: 500;
     text-align: center;
   }
 
+  /* ===== ISLANDS GRID ===== */
   .islands-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 40vw, 180px), 1fr));
-    gap: clamp(0.75rem, 3vw, 1.25rem);
-    padding: 0 clamp(0, 2vw, 1rem);
+    gap: var(--spacing-md);
+    padding: 0 var(--spacing-xs);
   }
 
+  /* ===== ISLAND CARD ===== */
   .island-card {
     position: relative;
     border: 4px solid;
-    border-radius: clamp(1.25rem, 3vw, 1.5rem);
+    border-radius: var(--radius-lg);
     padding: 0;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(139, 111, 71, 0.15);
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    transition: var(--transition-medium);
+    box-shadow: var(--shadow-md);
     min-height: clamp(200px, 50vw, 220px);
-    text-align: left;
-    touch-action: manipulation;
-    min-width: 0;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     overflow: hidden;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .island-card:hover {
     transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 8px 24px rgba(139, 111, 71, 0.25);
+    box-shadow: var(--shadow-lg);
   }
 
   .island-card:active {
@@ -323,49 +290,22 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 0;
-  }
-
-  .island-image-container {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 140px;
-    border-radius: clamp(0.75rem, 2vw, 1rem);
-    overflow: hidden;
-    padding: 2px;
-  }
-
-  .island-image {
-    max-width: clamp(120px, 28vw, 160px);
-    max-height: clamp(120px, 28vw, 160px);
-    object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(139, 111, 71, 0.1));
-    transition: transform 0.3s ease;
-    border-radius: clamp(0.5rem, 1.5vw, 0.75rem);
-  }
-
-  .island-card:hover .island-image {
-    transform: scale(1.1) rotate(5deg);
   }
 
   .island-content {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    z-index: 2;
-    padding: clamp(0.6rem, 2.5vw, 1rem);
-    border-radius: clamp(0.75rem, 2.5vw, 1rem) clamp(0.75rem, 2.5vw, 1rem) 0 0;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
   }
 
   .island-content h3 {
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1rem, 3vw, 1.15rem);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
     text-align: center;
-    letter-spacing: 0;
     line-height: 1.3;
   }
 
@@ -376,11 +316,10 @@
     flex-wrap: wrap;
   }
 
-
   .star {
     display: inline-flex;
     opacity: 0.3;
-    transition: all 0.2s ease;
+    transition: var(--transition-base);
   }
 
   .star.filled {
@@ -389,25 +328,19 @@
   }
 
   @keyframes pop {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1.2);
-    }
-    100% {
-      transform: scale(1);
-    }
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
   }
 
   .completion-badge {
     position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
+    top: var(--spacing-base);
+    right: var(--spacing-base);
     color: white;
     width: clamp(28px, 7vw, 32px);
     height: clamp(28px, 7vw, 32px);
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -415,14 +348,47 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
+  /* ===== RESET SECTION ===== */
+  .reset-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+  }
+
+  .reset-button {
+    border: none;
+    background: transparent;
+    color: var(--color-secondary);
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 500;
+    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    cursor: pointer;
+    opacity: 0.7;
+    box-shadow: none;
+    min-height: auto;
+    transition: var(--transition-base);
+  }
+
+  .reset-button:hover {
+    opacity: 1;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .reset-button:focus,
+  .reset-button:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* ===== RESPONSIVE ===== */
   @media (max-width: 480px) {
     .home-container {
-      padding: 0.75rem;
-    }
-
-    .home-header h1 {
-      font-size: 1.75rem;
-      margin-bottom: 0.5rem;
+      padding: var(--spacing-base);
     }
 
     .islands-grid {
@@ -432,8 +398,9 @@
 
   @media (min-width: 768px) {
     .home-container {
-      max-width: 900px;
-      padding-top: 2rem;
+      max-width: var(--layout-max-width);
+      margin: 0 auto;
+      padding-top: var(--spacing-xl);
     }
 
     .islands-grid {

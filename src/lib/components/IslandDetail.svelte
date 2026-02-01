@@ -163,9 +163,9 @@
   .title {
     flex: 1;
     text-align: left;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1.25rem, 4vw, 1.375rem);
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: 0;
     line-height: 1.3;
     min-width: 0;
@@ -208,9 +208,9 @@
 
   .progress-text {
     text-align: center;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(0.875rem, 2.5vw, 1rem);
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: clamp(1rem, 3vw, 1.5rem);
   }
 
@@ -229,9 +229,9 @@
     color: white;
     padding: clamp(0.375rem, 1.5vw, 0.5rem) clamp(0.75rem, 2.5vw, 1.25rem);
     border-radius: 50px;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(0.75rem, 2vw, 0.875rem);
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -239,9 +239,9 @@
 
   .task-section h2 {
     margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1.5rem, 5vw, 1.75rem);
-    font-weight: 700;
+    font-weight: 400;
     line-height: 1.3;
     letter-spacing: 0;
   }
@@ -249,10 +249,10 @@
   .task-section p {
     margin: 0;
     color: #5A4A42;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1rem, 3vw, 1.0625rem);
     line-height: 1.6;
-    font-weight: 500;
+    font-weight: 400;
   }
 
   /* Completion Section */
@@ -298,18 +298,18 @@
 
   .completion-section h2 {
     margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1.75rem, 6vw, 2rem);
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: 0;
   }
 
   .completion-section p {
     margin: 0 0 clamp(1rem, 3vw, 1.5rem) 0;
     color: #5A4A42;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1rem, 3vw, 1.125rem);
-    font-weight: 500;
+    font-weight: 400;
   }
 
   .favorites-preview {
@@ -321,9 +321,9 @@
 
   .preview-label {
     margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(0.875rem, 2.5vw, 1rem);
-    font-weight: 600;
+    font-weight: 400;
     color: #5A4A42;
   }
 
@@ -337,9 +337,9 @@
   .mini-fav {
     padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1.25rem);
     border-radius: 50px;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(0.875rem, 2vw, 0.9375rem);
-    font-weight: 600;
+    font-weight: 400;
     border: 2px solid;
   }
 
@@ -348,9 +348,9 @@
     border: none;
     border-radius: clamp(0.75rem, 2vw, 1rem);
     color: white;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.0625rem);
-    font-weight: 600;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);

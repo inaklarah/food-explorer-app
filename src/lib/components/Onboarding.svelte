@@ -220,7 +220,7 @@ h1 {
   color: #A08875;
   font-size: clamp(0.875rem, 3vw, 1rem);
   line-height: 1.7;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 /* Button */

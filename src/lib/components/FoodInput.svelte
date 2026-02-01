@@ -216,9 +216,9 @@
   }
 
   label {
-    font-family: 'Inria Sans', sans-serif;
+    font-family: "Fredoka", sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.125rem);
-    font-weight: 600;
+    font-weight: 500;
     color: #5A4A42;
   }
 
@@ -235,7 +235,8 @@
     border: 3px solid;
     border-radius: clamp(0.75rem, 2vw, 1rem);
     font-size: clamp(1rem, 2.5vw, 1.0625rem);
-    font-family: 'Inria Sans', sans-serif;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
     transition: all 0.2s ease;
     background: white;
   }
@@ -263,8 +264,9 @@
     border: none;
     border-radius: 999px;
     color: white;
+    font-family: "Fredoka", sans-serif;
     font-size: clamp(1.25rem, 3vw, 1.5rem);
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1;
     padding: 0;
     aspect-ratio: 1 / 1;
@@ -302,8 +304,8 @@
   .error p {
     margin: 0;
     color: #C92A2A;
-    font-family: 'Inria Sans', sans-serif;
-    font-weight: 600;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 500;
     font-size: clamp(0.9375rem, 2vw, 1rem);
   }
 
@@ -324,9 +326,9 @@
   }
 
   .praise-message p {
-    font-family: 'Inria Sans', sans-serif;
+    font-family: "Fredoka", sans-serif;
     font-size: clamp(1.25rem, 4vw, 1.5rem);
-    font-weight: 600;
+    font-weight: 500;
     margin: 0;
   }
 
@@ -340,7 +342,7 @@
   .info-box p {
     margin: 0;
     color: #5A4A42;
-    font-family: 'Inria Sans', sans-serif;
+    font-family: "Fredoka", sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.0625rem);
     line-height: 1.7;
     font-weight: 500;
@@ -356,9 +358,9 @@
     padding: clamp(1rem, 2vw, 1.25rem) clamp(1.5rem, 3vw, 1.75rem);
     border: none;
     border-radius: clamp(0.75rem, 2vw, 1rem);
-    font-family: 'Inria Sans', sans-serif;
+    font-family: "Fredoka", sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.0625rem);
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
