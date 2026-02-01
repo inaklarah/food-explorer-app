@@ -172,25 +172,30 @@
 
   /* ===== HEADER ===== */
   .home-header {
-    text-align: center;
+    text-align: left;
     margin-bottom: var(--spacing-xl);
-    padding-top: var(--spacing-base);
+    padding: var(--spacing-lg) var(--spacing-base);
+    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
   }
 
   .home-header h1 {
-    font-family: 'Fredoka', sans-serif;
-    font-size: clamp(1.75rem, 6vw, 2.5rem);
-    font-weight: 500;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 700;
     color: var(--color-secondary);
-    margin-bottom: var(--spacing-base);
-    line-height: 1.3;
+    margin: 0 0 var(--spacing-xs) 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
   }
 
   .subtitle {
     color: var(--color-secondary-light);
-    font-size: clamp(0.95rem, 3.5vw, 1.1rem);
-    font-weight: 500;
+    font-size: clamp(0.875rem, 3vw, 1rem);
+    font-weight: 400;
     line-height: 1.5;
+    margin: 0;
+    max-width: 28rem;
   }
 
   /* ===== STATS CARD ===== */
@@ -227,9 +232,9 @@
   }
 
   .stat-value {
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(1.5rem, 5vw, 2.25rem);
-    font-weight: 500;
+    font-weight: 700;
     color: var(--color-secondary);
   }
 
@@ -301,9 +306,9 @@
   }
 
   .island-content h3 {
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(1rem, 3vw, 1.15rem);
-    font-weight: 500;
+    font-weight: 700;
     margin: 0;
     text-align: center;
     line-height: 1.3;
@@ -362,8 +367,8 @@
     border: none;
     background: transparent;
     color: var(--color-secondary);
-    font-family: 'Fredoka', sans-serif;
-    font-weight: 500;
+    font-family: 'Inria Sans', sans-serif;
+    font-weight: 700;
     font-size: clamp(0.8rem, 2.5vw, 0.95rem);
     padding: var(--spacing-xs) var(--spacing-sm);
     cursor: pointer;
@@ -398,9 +403,14 @@
 
   @media (min-width: 768px) {
     .home-container {
-      max-width: var(--layout-max-width);
+      max-width: 900px;
       margin: 0 auto;
-      padding-top: var(--spacing-xl);
+      padding: var(--spacing-xl) var(--spacing-lg);
+      padding-bottom: var(--layout-padding-bottom);
+    }
+
+    .home-header {
+      padding: var(--spacing-xl) var(--spacing-lg);
     }
 
     .islands-grid {
@@ -409,6 +419,10 @@
   }
 
   @media (min-width: 1024px) {
+    .home-container {
+      max-width: 1000px;
+    }
+
     .islands-grid {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }

@@ -235,7 +235,7 @@ button {
   border-radius: clamp(0.75rem, 2vw, 1rem);
   font-family: 'Inria Sans', sans-serif;
   font-size: clamp(1rem, 3vw, 1.125rem);
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);
   transition: all 0.2s ease;
@@ -279,7 +279,7 @@ button:active {
 
 /* Name Input */
 .name-prompt {
-  font-weight: 600;
+  font-weight: 700;
   color: #7D5A3D;
   font-size: clamp(1rem, 3vw, 1.0625rem);
   margin-bottom: clamp(1.25rem, 2vw, 1.5rem);

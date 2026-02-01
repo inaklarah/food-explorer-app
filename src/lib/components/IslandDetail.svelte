@@ -38,7 +38,8 @@
   }
 </script>
 
-<div class="island-detail-container" style="background: linear-gradient(180deg, {island.bg}22 0%, #FFF9F0 100%);">
+<div class="island-detail-bg" style="background: linear-gradient(180deg, {island.bg}22 0%, var(--color-bg-secondary) 100%);">
+<div class="island-detail-container">
 <header>
   <button class="back" on:click={onBack} aria-label="Zurück" style="color: {island.color}">
     <svg
@@ -72,7 +73,7 @@
 <p class="progress-text" style="color: {island.color}">{completedTasks.length} von {island.tasks.length} Aufgaben geschafft</p>
 
   {#if isComplete}
-    <section class="completion-section" style="background: {island.bg};">
+    <section class="completion-section" style="border-color: {island.color};">
       <div class="celebration-icon">
         <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="{island.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -98,7 +99,7 @@
     </section>
   {:else}
     <!-- Task Section -->
-    <section class="task-section" style="background: {island.bg};">
+    <section class="task-section">
       <div class="task-badge" style="background: {island.color};">
         <span>Aufgabe {currentTaskIndex + 1}</span>
       </div>
@@ -114,12 +115,19 @@
     />
   {/if}
 </div>
+</div>
 
 <style>
+  .island-detail-bg {
+    min-height: 100vh;
+    width: 100%;
+  }
+  
   .island-detail-container {
     padding: clamp(1rem, 3vw, 1.5rem);
     padding-bottom: clamp(7.5rem, 20vw, 8rem);
-    min-height: 100vh;
+    max-width: 1000px;
+    margin: 0 auto;
   }
 
   /* Header */
@@ -145,7 +153,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
     transition: all 0.2s ease;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
@@ -153,7 +161,7 @@
 
   .back:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: none;
   }
 
   .back:active {
@@ -163,9 +171,9 @@
   .title {
     flex: 1;
     text-align: left;
-    font-family: 'Fredoka', sans-serif;
-    font-size: clamp(1.25rem, 4vw, 1.375rem);
-    font-weight: 400;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+    font-weight: 700;
     letter-spacing: 0;
     line-height: 1.3;
     min-width: 0;
@@ -208,9 +216,9 @@
 
   .progress-text {
     text-align: center;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(0.875rem, 2.5vw, 1rem);
-    font-weight: 400;
+    font-weight: 700;
     margin-bottom: clamp(1rem, 3vw, 1.5rem);
   }
 
@@ -219,7 +227,8 @@
     border-radius: clamp(1.5rem, 4vw, 1.75rem);
     padding: clamp(1.25rem, 4vw, 2rem);
     margin-bottom: clamp(1rem, 3vw, 1.5rem);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    background: var(--color-bg-card);
+    box-shadow: var(--shadow-md);
     position: relative;
     overflow: hidden;
   }
@@ -229,9 +238,9 @@
     color: white;
     padding: clamp(0.375rem, 1.5vw, 0.5rem) clamp(0.75rem, 2.5vw, 1.25rem);
     border-radius: 50px;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(0.75rem, 2vw, 0.875rem);
-    font-weight: 400;
+    font-weight: 700;
     margin-bottom: clamp(0.75rem, 2vw, 1.25rem);
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -239,20 +248,20 @@
 
   .task-section h2 {
     margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(1.5rem, 5vw, 1.75rem);
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.3;
     letter-spacing: 0;
   }
 
   .task-section p {
     margin: 0;
-    color: #5A4A42;
-    font-family: 'Fredoka', sans-serif;
+    color: var(--color-secondary-light);
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(1rem, 3vw, 1.0625rem);
     line-height: 1.6;
-    font-weight: 400;
+    font-weight: 700;
   }
 
   /* Completion Section */
@@ -261,7 +270,9 @@
     padding: clamp(1.5rem, 4vw, 2rem);
     text-align: center;
     margin-bottom: 1.5rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    background: var(--color-bg-card);
+    border: 2px solid;
+    box-shadow: var(--shadow-lg);
     animation: celebrationPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
@@ -298,7 +309,7 @@
 
   .completion-section h2 {
     margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(1.75rem, 6vw, 2rem);
     font-weight: 400;
     letter-spacing: 0;
@@ -306,25 +317,26 @@
 
   .completion-section p {
     margin: 0 0 clamp(1rem, 3vw, 1.5rem) 0;
-    color: #5A4A42;
-    font-family: 'Fredoka', sans-serif;
+    color: var(--color-secondary-light);
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(1rem, 3vw, 1.125rem);
     font-weight: 400;
   }
 
   .favorites-preview {
-    background: white;
+    background: var(--color-bg-card);
     border-radius: clamp(1rem, 3vw, 1.5rem);
     padding: clamp(1rem, 3vw, 1.5rem);
     margin-bottom: clamp(1rem, 3vw, 2rem);
+    border: 2px solid var(--color-border-light);
   }
 
   .preview-label {
     margin: 0 0 clamp(0.75rem, 2vw, 1rem) 0;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(0.875rem, 2.5vw, 1rem);
     font-weight: 400;
-    color: #5A4A42;
+    color: var(--color-secondary-light);
   }
 
   .favorites-mini {
@@ -337,7 +349,7 @@
   .mini-fav {
     padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1.25rem);
     border-radius: 50px;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(0.875rem, 2vw, 0.9375rem);
     font-weight: 400;
     border: 2px solid;
@@ -348,12 +360,12 @@
     border: none;
     border-radius: clamp(0.75rem, 2vw, 1rem);
     color: white;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.0625rem);
     font-weight: 400;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 16px rgba(255, 133, 85, 0.25);
+    box-shadow: var(--shadow-button);
     letter-spacing: 0.02em;
     min-height: 3rem;
     touch-action: manipulation;
@@ -362,12 +374,12 @@
 
   .back-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(255, 133, 85, 0.35);
+    box-shadow: var(--shadow-lg);
   }
 
   .back-button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(255, 133, 85, 0.2);
+    box-shadow: var(--shadow-base);
   }
 
   @media (max-width: 480px) {
@@ -377,7 +389,7 @@
     }
 
     .title {
-      font-size: 1.125rem;
+      font-size: 1.5rem;
     }
 
     .task-section h2 {

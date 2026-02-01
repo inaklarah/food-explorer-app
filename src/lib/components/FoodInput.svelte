@@ -53,6 +53,17 @@
     "Yummy! Das ist gesund! 💪"
   ];
 
+  const islandPlaceholders = {
+    Proteininsel: "z.B. Hähnchen, Linsen...",
+    Gemüseinsel: "z.B. Karotte, Brokkoli...",
+    Getreideinsel: "z.B. Hafer, Vollkornbrot...",
+    Getränkeinsel: "z.B. Wasser, ungesüßter Tee...",
+    Milchprodukteinsel: "z.B. Joghurt, Käse...",
+    Obstinsel: "z.B. Apfel, Banane..."
+  };
+
+  $: placeholderText = islandPlaceholders[island?.title] || "z.B. Apfel, Karotte...";
+
   async function handleSubmit() {
       if (!food.trim()) return;
       loading = true;
@@ -143,15 +154,15 @@
         type="text"
         bind:value={food}
         on:keypress={handleKeypress}
-        placeholder="z.B. Apfel, Karotte..."
+        placeholder={placeholderText}
         disabled={loading}
-        style="border-color: {island.color};"
+        style="--accent-color: {island.color};"
       />
       <button
         class="submit-btn"
         on:click={handleSubmit}
         disabled={!food.trim() || loading}
-        style="background: linear-gradient(180deg, {island.button} 0%, {island.button}dd 100%); box-shadow: 0 4px 0 {island.color}99;"
+        style="background: {island.button};"
       >
         {loading ? "..." : "→"}
       </button>
@@ -192,7 +203,7 @@
         <button 
           class="complete-button" 
           on:click={completeTask} 
-          style="background: linear-gradient(180deg, {island.button} 0%, {island.button}dd 100%); box-shadow: 0 6px 0 {island.color}99;"
+          style="background: {island.button};"
         >
           Aufgabe fertig
         </button>
@@ -216,35 +227,41 @@
   }
 
   label {
-    font-family: "Fredoka", sans-serif;
+    font-family: "Inria Sans", sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.125rem);
     font-weight: 500;
-    color: #5A4A42;
+    color: var(--color-secondary);
   }
 
   .input-wrapper {
     display: flex;
-    gap: clamp(0.5rem, 1.5vw, 0.75rem);
+    gap: var(--spacing-md);
     align-items: center;
   }
 
   input {
     flex: 1;
     min-width: 0;
-    padding: clamp(1rem, 2vw, 1.25rem) clamp(1rem, 2.5vw, 1.25rem);
-    border: 3px solid;
-    border-radius: clamp(0.75rem, 2vw, 1rem);
-    font-size: clamp(1rem, 2.5vw, 1.0625rem);
-    font-family: "Fredoka", sans-serif;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: 2px solid var(--color-border-light);
+    border-radius: var(--radius-full);
+    font-size: clamp(0.9375rem, 2vw, 1rem);
+    font-family: var(--font-family-body);
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: var(--transition-base);
     background: white;
+    color: var(--color-secondary);
+    min-height: clamp(2.75rem, 8vw, 3rem);
   }
 
   input:focus {
     outline: none;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color, var(--color-primary));
+    background: white;
+  }
+
+  input::placeholder {
+    color: var(--color-secondary-lighter);
   }
 
   input:disabled {
@@ -253,30 +270,22 @@
   }
 
   .submit-btn {
-    width: clamp(3rem, 10vw, 3.5rem);
-    height: clamp(3rem, 10vw, 3.5rem);
-    inline-size: clamp(3rem, 10vw, 3.5rem);
-    block-size: clamp(3rem, 10vw, 3.5rem);
-    max-inline-size: clamp(3rem, 10vw, 3.5rem);
-    max-block-size: clamp(3rem, 10vw, 3.5rem);
-    min-width: 3rem;
-    min-height: 3rem;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    min-width: clamp(2.75rem, 8vw, 3.25rem);
+    min-height: clamp(2.75rem, 8vw, 3.25rem);
     border: none;
-    border-radius: 999px;
     color: white;
-    font-family: "Fredoka", sans-serif;
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    font-family: var(--font-family-body);
+    font-size: clamp(1.125rem, 3vw, 1.25rem);
     font-weight: 500;
     line-height: 1;
-    padding: 0;
-    aspect-ratio: 1 / 1;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: var(--transition-base);
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
-    box-sizing: border-box;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
@@ -287,11 +296,11 @@
   }
 
   .submit-btn:not(:disabled):hover {
-    transform: translateY(-2px) scale(1.05);
+    transform: scale(1.1);
   }
 
   .submit-btn:not(:disabled):active {
-    transform: translateY(3px);
+    transform: scale(0.95);
   }
 
   .error {
@@ -304,7 +313,7 @@
   .error p {
     margin: 0;
     color: #C92A2A;
-    font-family: "Fredoka", sans-serif;
+    font-family: "Inria Sans", sans-serif;
     font-weight: 500;
     font-size: clamp(0.9375rem, 2vw, 1rem);
   }
@@ -326,7 +335,7 @@
   }
 
   .praise-message p {
-    font-family: "Fredoka", sans-serif;
+    font-family: "Inria Sans", sans-serif;
     font-size: clamp(1.25rem, 4vw, 1.5rem);
     font-weight: 500;
     margin: 0;
@@ -335,14 +344,14 @@
   .info-box {
     border-radius: clamp(0.75rem, 2vw, 1rem);
     padding: clamp(1rem, 2vw, 1.5rem);
-    border: 3px solid;
+    border: 2px solid;
     margin-bottom: clamp(1rem, 2vw, 1.5rem);
   }
 
   .info-box p {
     margin: 0;
-    color: #5A4A42;
-    font-family: "Fredoka", sans-serif;
+    color: var(--color-secondary);
+    font-family: "Inria Sans", sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.0625rem);
     line-height: 1.7;
     font-weight: 500;
@@ -354,15 +363,15 @@
     gap: clamp(0.75rem, 2vw, 1rem);
   }
 
-  button {
+  .action-buttons button {
     padding: clamp(1rem, 2vw, 1.25rem) clamp(1.5rem, 3vw, 1.75rem);
     border: none;
     border-radius: clamp(0.75rem, 2vw, 1rem);
-    font-family: "Fredoka", sans-serif;
+    font-family: "Inria Sans", sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.0625rem);
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: var(--transition-base);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -371,29 +380,30 @@
     min-height: 3rem;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    box-shadow: none;
   }
 
-  .favorite-button {
-    border-width: 3px !important;
+  .action-buttons .favorite-button {
+    border-width: 2px !important;
   }
 
   .complete-button {
     color: white;
   }
 
-  button:disabled {
+  .action-buttons button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  button:not(:disabled):hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(255, 133, 85, 0.35);
+  .action-buttons button:not(:disabled):hover {
+    transform: none;
+    box-shadow: none;
   }
 
-  button:not(:disabled):active {
-    transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(255, 133, 85, 0.2);
+  .action-buttons button:not(:disabled):active {
+    transform: none;
+    box-shadow: none;
   }
 
   @keyframes popIn {
@@ -427,7 +437,7 @@
       padding: 0.75rem;
     }
 
-    button {
+    .action-buttons button {
       width: 100%;
     }
   }

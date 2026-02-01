@@ -130,6 +130,41 @@
     }
   }
 
+  // PDF-Download-Funktion
+  function downloadRecipePDF() {
+    if (!allRecipe) return;
+    
+    const selectedFoods = favorites
+      .filter(f => selectedFavorites.has(f.id))
+      .map(f => f.food);
+    const mealTypeLabel = mealTypes.find(m => m.value === selectedMealType)?.label || "Mahlzeit";
+    
+    // Erstelle den PDF-Inhalt als Text
+    const pdfContent = `
+DEIN LIEBLINGS-REZEPT
+Mahlzeit: ${mealTypeLabel}
+
+Zutaten:
+${selectedFoods.map(food => `- ${food}`).join('\n')}
+
+Rezept:
+${allRecipe.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ')}
+
+Erstellt am: ${new Date().toLocaleDateString('de-DE')}
+    `.trim();
+    
+    // Erstelle Blob und Download
+    const blob = new Blob([pdfContent], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `rezept-${Date.now()}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
   // Bilde Inseltitel auf Tiger-Bilder ab (wie in HomeOverview)
   function getTigerImage(islandTitle) {
     const mapping = {
@@ -155,22 +190,13 @@
 <main class="favorites-view">
   <!-- Header -->
   <header>
-    <button class="back-btn" on:click={onBack} aria-label="Zurück" style="color: #FF9B71">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="32"
-        height="32"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-    </button>
-    <span class="title" style="color: #FF9B71">Deine Lieblingsessen</span>
+    <div class="header-content">
+      <h1>Favoriten</h1>
+      <p class="header-description">Hier findest du alle deine gespeicherten Lieblingsessen</p>
+      {#if favorites.length > 0}
+        <p class="header-instruction">Wähle Zutaten aus, um ein Rezept zu erstellen</p>
+      {/if}
+    </div>
   </header>
 
   <!-- Content -->
@@ -186,8 +212,21 @@
         <p>Wenn dir etwas besonders gut schmeckt,<br>speichere es als Favorit!</p>
       </div>
     {:else}
-      <!-- Instruction Text -->
-      <p class="favorites-instruction">Wähle Zutaten aus, um ein Rezept zu erstellen</p>
+      <!-- Mahlzeit-Auswahl -->
+      <div class="meal-type-selector">
+        <span class="meal-type-label">Für welche Mahlzeit?</span>
+        <div class="meal-type-options">
+          {#each mealTypes as mealType}
+            <button
+              class="meal-type-btn"
+              class:active={selectedMealType === mealType.value}
+              on:click={() => selectedMealType = mealType.value}
+            >
+              <span class="meal-label">{mealType.label}</span>
+            </button>
+          {/each}
+        </div>
+      </div>
 
       <!-- Nach Inseln gruppierte Favoriten -->
       <div class="islands-container">
@@ -263,45 +302,33 @@
       </div>
     {/if}
 
-    {#if favorites.length > 0}
+    {#if favorites.length > 0 && allRecipe}
       <div class="recipe-section" in:fade={{delay: 300}}>
-        <!-- Mahlzeit-Auswahl -->
-        <div class="meal-type-selector">
-          <span class="meal-type-label">Für welche Mahlzeit?</span>
-          <div class="meal-type-options">
-            {#each mealTypes as mealType}
-              <button
-                class="meal-type-btn"
-                class:active={selectedMealType === mealType.value}
-                on:click={() => selectedMealType = mealType.value}
-              >
-                <span class="meal-label">{mealType.label}</span>
-              </button>
-            {/each}
-          </div>
-        </div>
-
-        <!-- Rezept-Generator Button -->
-        <button 
-          class="recipe-generator-btn" 
-          on:click={generateAllRecipe} 
-          disabled={loadingAllRecipe || selectedFavorites.size === 0}
-        >
-          {#if loadingAllRecipe}
-            Rezept wird erstellt...
-          {:else}
-            Kreiere ein Rezept
-          {/if}
-        </button>
-
         {#if allRecipe}
           <div class="recipe-box" in:fade>
             <div class="recipe-header">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-              </svg>
               <h2>Dein Lieblings-Rezept</h2>
+              <button class="download-btn" on:click={downloadRecipePDF} title="Als Textdatei herunterladen">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download
+              </button>
             </div>
+            
+            <div class="recipe-meta">
+              <div class="meta-item">
+                <span class="meta-label">Mahlzeit:</span>
+                <span class="meta-value">{mealTypes.find(m => m.value === selectedMealType)?.label}</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Zutaten:</span>
+                <span class="meta-value">{selectedFavorites.size} ausgewählt</span>
+              </div>
+            </div>
+            
             <div class="recipe-content formatted-recipe">
               {@html formatRecipe(allRecipe)}
             </div>
@@ -310,6 +337,21 @@
       </div>
     {/if}
   </div>
+
+  <!-- Fixed Recipe Generator Button -->
+  {#if favorites.length > 0}
+    <button 
+      class="recipe-generator-btn-fixed" 
+      on:click={generateAllRecipe} 
+      disabled={loadingAllRecipe || selectedFavorites.size === 0}
+    >
+      {#if loadingAllRecipe}
+        Rezept wird erstellt...
+      {:else}
+        Kreiere ein Rezept
+      {/if}
+    </button>
+  {/if}
 </main>
 
 <style>
@@ -324,57 +366,48 @@
 
   /* ===== HEADER ===== */
   header {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
     margin-bottom: var(--spacing-xl);
-    padding: var(--spacing-lg) var(--spacing-md) 0;
-  }
-
-  .back-btn {
-    width: clamp(2.75rem, 10vw, 3rem);
-    height: clamp(2.75rem, 10vw, 3rem);
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    padding: 0;
+    padding: var(--spacing-lg) var(--spacing-md);
     background: var(--color-bg-card);
-    border: none;
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: var(--shadow-base);
-    transition: var(--transition-base);
-    color: var(--color-primary);
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
+    border-radius: var(--radius-lg);
   }
 
-  .back-btn:hover {
-    transform: scale(1.1);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .back-btn:active {
-    transform: scale(0.95);
-  }
-
-  .title {
-    flex: 1;
+  .header-content {
     text-align: left;
-    font-family: 'Fredoka', sans-serif;
-    font-size: clamp(1.125rem, 4vw, 1.375rem);
-    font-weight: 500;
-    letter-spacing: 0;
-    min-width: 0;
+  }
+
+  header h1 {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 700;
+    color: var(--color-secondary);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .header-description {
+    margin: 0;
+    font-size: clamp(0.875rem, 3vw, 1rem);
+    color: var(--color-secondary-light);
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 28rem;
+  }
+
+  .header-instruction {
+    margin: 0;
+    font-size: clamp(0.875rem, 3vw, 1rem);
+    color: var(--color-secondary-light);
+    font-weight: 400;
+    line-height: 1.5;
+    max-width: 28rem;
   }
 
   /* ===== CONTENT ===== */
   .content {
     flex: 1;
-    padding: var(--spacing-lg);
+    padding: 0 var(--spacing-md) var(--spacing-lg);
     overflow-y: auto;
   }
 
@@ -403,7 +436,7 @@
 
   .empty-state h2 {
     margin: 0 0 var(--spacing-md) 0;
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(1.5rem, 5vw, 1.75rem);
     font-weight: 500;
     color: var(--color-secondary);
@@ -419,22 +452,21 @@
 
   /* ===== INSTRUCTION ===== */
   .favorites-instruction {
-    margin: 0 0 var(--spacing-xl) 0;
-    text-align: center;
-    font-family: 'Fredoka', sans-serif;
-    font-size: clamp(1rem, 3vw, 1.125rem);
+    margin: 0 0 var(--spacing-lg) 0;
+    text-align: left;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(0.9375rem, 2.5vw, 1rem);
     font-weight: 500;
     color: var(--color-secondary);
-    padding: var(--spacing-md);
-    background: var(--color-bg-primary);
-    border-radius: var(--radius-base);
+    padding: var(--spacing-md) 0;
   }
 
   /* ===== ISLANDS CONTAINER ===== */
   .islands-container {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
   }
 
   /* ===== ISLAND SECTION ===== */
@@ -447,8 +479,8 @@
 
   /* ===== ISLAND HEADER ===== */
   .island-header {
-    padding: var(--spacing-lg);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   .island-header-content {
@@ -458,13 +490,13 @@
   }
 
   .island-icon {
-    width: clamp(3rem, 10vw, 3.5rem);
-    height: clamp(3rem, 10vw, 3.5rem);
-    border-radius: var(--radius-full);
-    border: 3px solid;
+    width: clamp(2.5rem, 8vw, 3rem);
+    height: clamp(2.5rem, 8vw, 3rem);
+    border-radius: 50%;
+    border: 2px solid;
     overflow: hidden;
     flex-shrink: 0;
-    background: var(--color-bg-card);
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -476,20 +508,27 @@
     object-fit: cover;
   }
 
+  .island-info {
+    flex: 1;
+    min-width: 0;
+  }
+
   .island-info h2 {
     margin: 0;
-    font-family: 'Fredoka', sans-serif;
-    font-size: clamp(1.125rem, 3vw, 1.375rem);
-    font-weight: 500;
-    letter-spacing: 0.01em;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.125rem);
+    font-weight: 700;
+    letter-spacing: 0;
     line-height: 1.3;
+    text-align: left;
   }
 
   .island-count {
     margin: var(--spacing-xs) 0 0 0;
-    font-size: clamp(0.8125rem, 2vw, 0.875rem);
-    font-weight: 500;
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    font-weight: 400;
     color: var(--color-secondary-light);
+    text-align: left;
   }
 
   /* ===== FAVORITES LIST ===== */
@@ -502,13 +541,13 @@
   /* ===== FAVORITE ITEM ===== */
   .favorite-item {
     background: var(--color-bg-card);
-    padding: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
     border-bottom: 1px solid var(--color-border-light);
     transition: var(--transition-base);
-    min-height: 3.5rem;
+    min-height: 4rem;
   }
 
   .favorite-item:last-child {
@@ -516,11 +555,12 @@
   }
 
   .favorite-item:hover {
-    background: #FFFBF7;
+    background: var(--color-primary-soft);
   }
 
   .favorite-item.selected {
-    background: var(--color-bg-primary);
+    background: var(--color-primary-soft);
+    border-left-width: 4px;
   }
 
   /* ===== CHECKBOX ===== */
@@ -588,16 +628,17 @@
   .item-content {
     flex: 1;
     min-width: 0;
+    text-align: left;
   }
 
   .food-name {
-    margin: 0 0 var(--spacing-xs) 0;
-    font-family: 'Fredoka', sans-serif;
-    font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
-    font-weight: 500;
+    margin: 0 0 0.25rem 0;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(0.9375rem, 2.5vw, 1rem);
+    font-weight: 700;
     color: var(--color-secondary);
     letter-spacing: 0;
-    line-height: 1.3;
+    line-height: 1.4;
     word-wrap: break-word;
   }
 
@@ -605,7 +646,7 @@
     margin: 0;
     font-size: clamp(0.75rem, 2vw, 0.8125rem);
     color: var(--color-secondary-lighter);
-    font-weight: 500;
+    font-weight: 400;
   }
 
   /* ===== REMOVE BUTTON ===== */
@@ -645,15 +686,17 @@
   /* ===== MEAL TYPE SELECTOR ===== */
   .meal-type-selector {
     margin-bottom: var(--spacing-lg);
+    text-align: left;
   }
 
   .meal-type-label {
     display: block;
-    font-family: 'Fredoka', sans-serif;
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
-    font-weight: 500;
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(0.9375rem, 2.5vw, 1rem);
+    font-weight: 700;
     color: var(--color-secondary);
-    margin-bottom: var(--spacing-base);
+    margin-bottom: var(--spacing-md);
+    text-align: left;
   }
 
   .meal-type-options {
@@ -687,25 +730,15 @@
   }
 
   .meal-type-btn.active {
-    background: var(--color-primary);
+    background: #FFF5E6;
     border-color: var(--color-primary);
-    color: white;
+    color: var(--color-primary);
   }
 
   .meal-label {
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(0.875rem, 2.5vw, 1rem);
-    font-weight: 500;
-  }
-
-  @media (max-width: 480px) {
-    .meal-type-options {
-      flex-direction: column;
-    }
-
-    .meal-type-btn {
-      min-width: 0;
-    }
+    font-weight: 700;
   }
 
   /* ===== RECIPE GENERATOR BUTTON ===== */
@@ -716,7 +749,7 @@
     color: white;
     border: none;
     border-radius: var(--radius-full);
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(1rem, 2.5vw, 1.125rem);
     font-weight: 500;
     cursor: pointer;
@@ -748,6 +781,50 @@
     cursor: not-allowed;
   }
 
+  /* ===== FIXED RECIPE GENERATOR BUTTON ===== */
+  .recipe-generator-btn-fixed {
+    position: fixed;
+    bottom: clamp(5.5rem, 15vw + 1rem, 7rem);
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.01em;
+    min-height: 3.5rem;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: var(--shadow-button);
+    transition: var(--transition-base);
+    z-index: 100;
+  }
+
+  .recipe-generator-btn-fixed:hover:not(:disabled) {
+    background: var(--color-primary-light);
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 24px rgba(255, 155, 113, 0.35);
+  }
+
+  .recipe-generator-btn-fixed:active:not(:disabled) {
+    transform: translateX(-50%) translateY(0);
+    box-shadow: var(--shadow-base);
+  }
+
+  .recipe-generator-btn-fixed:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   /* ===== RECIPE BOX ===== */
   .recipe-box {
     margin-top: var(--spacing-lg);
@@ -755,55 +832,137 @@
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
+    border: 2px solid var(--color-border-light);
   }
 
   .recipe-header {
     padding: var(--spacing-lg);
-    background: linear-gradient(135deg, var(--color-primary) 0%, #FFB347 100%);
+    background: var(--color-bg-card);
+    border-bottom: 2px solid var(--color-border-light);
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--spacing-sm);
+    justify-content: space-between;
+    gap: var(--spacing-md);
   }
 
   .recipe-header h2 {
     margin: 0;
-    color: white;
-    font-family: 'Fredoka', sans-serif;
-    font-size: clamp(1.25rem, 4vw, 1.5rem);
-    font-weight: 500;
-    letter-spacing: 0;
+    color: var(--color-secondary);
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(1.125rem, 4vw, 1.375rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    flex: 1;
   }
 
-  .recipe-header svg {
-    width: clamp(1.5rem, 5vw, 2rem);
-    height: clamp(1.5rem, 5vw, 2rem);
+  .download-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-full);
+    font-family: 'Inria Sans', sans-serif;
+    font-size: clamp(0.8125rem, 2.5vw, 0.9375rem);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-base);
+    box-shadow: var(--shadow-sm);
+    min-height: auto;
+    white-space: nowrap;
+  }
+
+  .download-btn:hover {
+    background: var(--color-primary-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .download-btn:active {
+    transform: translateY(0);
+  }
+
+  .download-btn svg {
+    width: 16px;
+    height: 16px;
     flex-shrink: 0;
   }
 
+  .recipe-meta {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-bg-primary);
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .meta-item {
+    display: flex;
+    gap: var(--spacing-xs);
+    align-items: center;
+  }
+
+  .meta-label {
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
+    color: var(--color-secondary-light);
+    font-weight: 500;
+  }
+
+  .meta-value {
+    font-size: clamp(0.8125rem, 2vw, 0.875rem);
+    color: var(--color-secondary);
+    font-weight: 700;
+  }
+
   .recipe-content {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    background: white;
   }
 
   .formatted-recipe :global(p) {
-    font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
+    font-size: clamp(0.9375rem, 2.5vw, 1rem);
     color: var(--color-secondary);
-    margin: var(--spacing-md) 0;
-    line-height: 1.7;
-    font-weight: 500;
+    margin: 0 0 var(--spacing-md) 0;
+    line-height: 1.8;
+    font-weight: 400;
+  }
+
+  .formatted-recipe :global(p:last-child) {
+    margin-bottom: 0;
   }
 
   .formatted-recipe :global(ul) {
     margin: var(--spacing-md) 0;
-    padding-left: var(--spacing-lg);
+    padding-left: var(--spacing-xl);
+    list-style-type: disc;
+  }
+
+  .formatted-recipe :global(ol) {
+    margin: var(--spacing-md) 0;
+    padding-left: var(--spacing-xl);
+    counter-reset: recipe-step;
   }
 
   .formatted-recipe :global(li) {
-    margin-bottom: var(--spacing-sm);
-    font-size: clamp(0.95rem, 2.5vw, 1.0625rem);
+    margin-bottom: var(--spacing-md);
+    font-size: clamp(0.9375rem, 2.5vw, 1rem);
     color: var(--color-secondary);
-    line-height: 1.6;
-    font-weight: 500;
+    line-height: 1.7;
+    font-weight: 400;
+    padding-left: var(--spacing-xs);
+  }
+
+  .formatted-recipe :global(li:last-child) {
+    margin-bottom: 0;
+  }
+
+  .formatted-recipe :global(strong),
+  .formatted-recipe :global(b) {
+    font-weight: 700;
+    color: var(--color-secondary);
   }
 
   /* ===== RESPONSIVE ===== */
@@ -811,21 +970,34 @@
     .content {
       padding: var(--spacing-md);
     }
-
-    header {
-      padding: var(--spacing-md) var(--spacing-md) 0;
-    }
   }
 
   @media (min-width: 768px) {
+    .favorites-view {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--spacing-xl) var(--spacing-lg) var(--layout-padding-bottom);
+    }
+
+    header {
+      padding: var(--spacing-xl) var(--spacing-lg);
+      margin-bottom: var(--spacing-2xl);
+    }
+
     .content {
-      padding: var(--spacing-xl);
+      padding: 0 var(--spacing-lg) var(--spacing-xl);
     }
 
     .recipe-section {
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .favorites-view {
+      max-width: 1000px;
     }
   }
 </style>

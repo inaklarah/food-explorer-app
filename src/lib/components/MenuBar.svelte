@@ -64,9 +64,9 @@
     display: flex;
     justify-content: space-around;
     padding: var(--spacing-sm) var(--spacing-xs) var(--spacing-sm);
-    box-shadow: 0 -4px 20px var(--shadow-strong);
+    box-shadow: none;
     z-index: var(--zIndex-menuBar);
-    border-top: none;
+    border-top: 1px solid var(--color-border-light);
     gap: var(--spacing-xs);
   }
 
@@ -84,7 +84,7 @@
     position: relative;
     color: var(--color-secondary-light);
     border-radius: var(--radius-full);
-    min-height: 3rem;
+    min-height: 3.5rem;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     box-shadow: none;
@@ -124,9 +124,9 @@
 
   /* ===== LABEL ===== */
   .label {
-    font-family: 'Fredoka', sans-serif;
+    font-family: 'Inria Sans', sans-serif;
     font-size: clamp(0.625rem, 2vw, 0.8rem);
-    font-weight: 500;
+    font-weight: 700;
     letter-spacing: 0.01em;
     line-height: 1.1;
   }

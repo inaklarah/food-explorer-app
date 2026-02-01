@@ -17,9 +17,7 @@
   aria-label="Chat mit {characterName} öffnen"
 >
   <!-- Tiger Icon -->
-  <div class="avatar-icon">
-    <img src="/explorer/tiger.png" alt={characterName} />
-  </div>
+  <img src="/explorer/tiger.png" alt={characterName} class="avatar-img" />
   
   <!-- Passive Sprechblase -->
   {#if $passiveComment}
@@ -42,6 +40,8 @@
     padding: 0;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    min-height: 3.5rem;
+    box-shadow: none;
   }
 
   @keyframes gentle-bounce {
@@ -53,36 +53,22 @@
     }
   }
 
-  .avatar-icon {
-    width: clamp(3.5rem, 12vw, 4rem);
-    height: clamp(3.5rem, 12vw, 4rem);
-    min-width: 3.5rem;
-    min-height: 3.5rem;
-    background: linear-gradient(135deg, #FF9B71, #FFA07A);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 16px rgba(255, 155, 113, 0.4);
-    transition: all 0.3s ease;
-    border: 3px solid white;
-  }
-
-  .avatar-icon:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 24px rgba(255, 155, 113, 0.6);
-  }
-
-  .avatar-icon:active {
-    transform: scale(0.95);
-  }
-
-  .avatar-icon img {
-    width: 100%;
-    height: 100%;
+  .avatar-img {
+    width: 3.5rem;
+    height: 3.5rem;
     object-fit: cover;
-    filter: brightness(1.1);
     border-radius: 50%;
+    transition: all 0.3s ease;
+    display: block;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .character-avatar:hover .avatar-img {
+    transform: scale(1.1);
+  }
+
+  .character-avatar:active .avatar-img {
+    transform: scale(0.95);
   }
 
   /* Sprechblase */
@@ -94,14 +80,14 @@
     background: white;
     padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 2.5vw, 1rem);
     border-radius: clamp(0.75rem, 2vw, 1rem);
-    box-shadow: 0 4px 16px rgba(125, 90, 61, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     font-family: 'Inria Sans', sans-serif;
     font-size: clamp(0.875rem, 2.5vw, 0.875rem);
     color: #7D5A3D;
     max-width: clamp(160px, 40vw, 220px);
     white-space: normal;
     animation: fadeInUp 0.3s ease;
-    border: 2px solid #FFE8D6;
+    border: 2px solid #E5E5E5;
     word-wrap: break-word;
     line-height: 1.4;
   }
@@ -136,11 +122,9 @@
       right: clamp(0.75rem, 2vw, 1rem);
     }
 
-    .avatar-icon {
+    .avatar-img {
       width: clamp(3rem, 10vw, 3.5rem);
       height: clamp(3rem, 10vw, 3.5rem);
-      min-width: 3rem;
-      min-height: 3rem;
     }
 
     .speech-bubble {
@@ -155,7 +139,7 @@
       right: clamp(1.5rem, 3vw, 2rem);
     }
 
-    .avatar-icon {
+    .avatar-img {
       width: clamp(4rem, 8vw, 4.5rem);
       height: clamp(4rem, 8vw, 4.5rem);
     }

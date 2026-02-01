@@ -58,9 +58,9 @@ export const theme = {
   typography: {
     // Schriftfamilien
     fontFamily: {
-      primary: "'Fredoka', sans-serif",
-      heading: "'Fredoka', sans-serif",
-      body: "'Fredoka', sans-serif"
+      primary: "'Inria Sans', sans-serif",
+      heading: "'Inria Sans', sans-serif",
+      body: "'Inria Sans', sans-serif"
     },
     
     // Schriftgrößen (responsive mit clamp)

@@ -73,17 +73,13 @@
     }
   }
 
-  // Navigation zwischen Inseln (Startscreen)
+  // Navigation zwischen Inseln (Startscreen) - zirkulär
   function next() {
-    if (current < islands.length - 1) {
-      current += 1;
-    }
+    current = (current + 1) % islands.length;
   }
 
   function prev() {
-    if (current > 0) {
-      current -= 1;
-    }
+    current = (current - 1 + islands.length) % islands.length;
   }
 
   // App-Flows
